@@ -12,7 +12,7 @@ struct DiceGameApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GameView()
         }
     }
 }
