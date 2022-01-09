@@ -185,11 +185,6 @@ struct GameView: View {
                     Spacer()
                 }
             }
-            Button("End") {
-                self.showEndGameView = true
-            }
-            
-
         }
         .fullScreenCover(isPresented: $showScoreView) {
             ScoresView()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PlayerScore: Identifiable {
+struct PlayerScore: Identifiable, Hashable {
     
     enum Combinations {
         case ones, twos, threes, fours, fives, sixes, pair, twoPairs, threeOfKind, smallStraight, bigStraight, full, fourOfKind, fiveOfKind, chanse

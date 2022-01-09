@@ -10,21 +10,41 @@ import SwiftUI
 struct ScoresView: View {
     
     @EnvironmentObject var VM: GameViewVM
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
             K.Colors.lightViolet
                 .ignoresSafeArea(.all)
-            VStack {
-                Text("Scores:")
+            ScrollView {
+                Text("Scores")
                     .foregroundColor(K.Colors.darkViolet)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .padding()
-                ScoreboardView()
-                    .padding()
+                HStack(alignment: .top) {
+                    TitlesScoreboardView()
+                    ForEach(1..<VM.playersScores.count + 1) { number in
+                        PlayerScoreboardView(playerNumber: number)
+                    }
+                    
+                }
                 Spacer()
-                
+            }
+            HStack {
+                Spacer()
+                VStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(K.Colors.yellow)
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .background(K.Colors.darkViolet)
+                            .clipShape(Circle())
+                    }.padding()
+                    Spacer()
+                }
             }
         }
         
