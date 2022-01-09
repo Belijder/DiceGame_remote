@@ -55,23 +55,6 @@ class GameViewVM: ObservableObject {
         
         let result = playersScores[playerNumber - 1].scores.map() { $0.value }.reduce(0, +)
         
-        // Testuje czy nowa wersja luczenia działa.
-//       let result = playersScores[playerNumber - 1].ones +
-//        playersScores[playerNumber - 1].twos +
-//        playersScores[playerNumber - 1].threes +
-//        playersScores[playerNumber - 1].fours +
-//        playersScores[playerNumber - 1].fives +
-//        playersScores[playerNumber - 1].sixes +
-//        playersScores[playerNumber - 1].pair +
-//        playersScores[playerNumber - 1].twoPairs +
-//        playersScores[playerNumber - 1].threeOfKind +
-//        playersScores[playerNumber - 1].smallStraight +
-//        playersScores[playerNumber - 1].bigStraight +
-//        playersScores[playerNumber - 1].full +
-//        playersScores[playerNumber - 1].fourOfKind +
-//        playersScores[playerNumber - 1].fiveOfKind +
-//        playersScores[playerNumber - 1].chanse
-        
         let resultAsInt = Int(result)
         return resultAsInt
     
@@ -88,7 +71,6 @@ class GameViewVM: ObservableObject {
         }
         
         totalValue = Double(countDices * 1)
-        //self.playersScores[playerNumber - 1].ones = totalValue
         self.playersScores[playerNumber - 1].scores[.ones] = totalValue
         print(playersScores[playerNumber - 1].scores[.ones] as Any)
         print("Total result for player \(playerNumber): \(calculateTotalResult(forPlayer: playerNumber))")
@@ -105,7 +87,6 @@ class GameViewVM: ObservableObject {
         }
         
         totalValue = Double(countDices * 2)
-        //self.playersScores[playerNumber - 1].twos = totalValue
         self.playersScores[playerNumber - 1].scores[.twos] = totalValue
         print(playersScores[playerNumber - 1].scores[.twos] as Any)
         print("Total result for player \(playerNumber): \(calculateTotalResult(forPlayer: playerNumber))")

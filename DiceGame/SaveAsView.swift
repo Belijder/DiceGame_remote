@@ -16,6 +16,7 @@ struct SaveAsView: View {
     
     var body: some View {
         NavigationView {
+            ZStack{
                 List {
                     if VM.playersScores[currentPlayer - 1].scores[.ones] == 0.01 {
                         Button("Ones") {
@@ -129,8 +130,13 @@ struct SaveAsView: View {
                         }
                     }
                 }
+            }
+                
                 .navigationTitle(Text("Save as:"))
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationBarItems(trailing: Button("Cancel") {
+                                                    dismiss()
+                })
         }
     }
 }

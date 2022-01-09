@@ -10,6 +10,8 @@ import SwiftUI
 struct EndGameView: View {
     
     @EnvironmentObject var VM: GameViewVM
+    @Environment(\.presentationMode) var presentationMode
+    
     
     var body: some View {
         ZStack {

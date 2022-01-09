@@ -13,6 +13,7 @@ struct GameView: View {
 
     @State var showSaveAsView = false
     @State var showScoreView = false
+    @State var showEndGameView = false
     
     let columns1 = [
         GridItem(.fixed(120)),
@@ -158,17 +159,14 @@ struct GameView: View {
                                 .clipShape(Capsule())
                                 .padding()
                         }
-                        // Tutaj dać funkcję na onDismiss która zmienia playera na kolejnego.??
-                        .sheet(isPresented: $showSaveAsView) {
+                        .fullScreenCover(isPresented: $showSaveAsView) {
                             SaveAsView(currentPlayer: gameViewVM.currentPlayer)
                         }
                     }
 
                 }
                 .padding(.horizontal)
-            }.fullScreenCover(isPresented: $gameViewVM.gameIsEnded) {
-                EndGameView()
-            }
+            }.fullScreenCover(isPresented: $gameViewVM.gameIsEnded, content: EndGameView.init)
             
             
             HStack {
@@ -186,15 +184,20 @@ struct GameView: View {
                     }
                     Spacer()
                 }
-            }.fullScreenCover(isPresented: $showScoreView) {
-                ScoresView()
+            }
+            Button("End") {
+                self.showEndGameView = true
             }
             
 
         }
+        .fullScreenCover(isPresented: $showScoreView) {
+            ScoresView()
+        }
         .environmentObject(gameViewVM)
     }
 }
+
 
 
 
