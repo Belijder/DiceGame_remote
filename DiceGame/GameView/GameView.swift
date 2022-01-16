@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameView: View {
     
-    @StateObject var gameViewVM = GameViewVM()
+    @EnvironmentObject var gameViewVM: GameViewVM
 
     @State var showSaveAsView = false
     @State var showScoreView = false
@@ -31,11 +31,14 @@ struct GameView: View {
             
             VStack {
                 Text("Player \(gameViewVM.currentPlayer)")
+                    .font(.title)
+                    .fontWeight(.light)
+                    .foregroundColor(K.Colors.darkViolet)
+                    .padding(.top, 20)
+                Text("\(gameViewVM.playersScores[gameViewVM.currentPlayer - 1].playerName)")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(K.Colors.darkViolet)
-                    .padding(.top, 20)
-                
                 
                 if gameViewVM.currentNumberOfdiceRolls == 0 {
                     Button {

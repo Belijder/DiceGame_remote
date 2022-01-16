@@ -15,22 +15,28 @@ struct PlayerScore: Identifiable, Hashable {
     
     let id = UUID()
     
-    var ones = 0.01
-    var twos = 0.01
-    var threes = 0.01
-    var fours = 0.01
-    var fives = 0.01
-    var sixes = 0.01
-
-    var pair = 0.01
-    var twoPairs = 0.01
-    var threeOfKind = 0.01
-    var smallStraight = 0.01
-    var bigStraight = 0.01
-    var full = 0.01
-    var fourOfKind = 0.01
-    var fiveOfKind = 0.01
-    var chanse = 0.01
+    let playerNumber: Int
+    
+    var playerName = " "
+    
+    var isSelected = false
+    
+//    var ones = 0.01
+//    var twos = 0.01
+//    var threes = 0.01
+//    var fours = 0.01
+//    var fives = 0.01
+//    var sixes = 0.01
+//
+//    var pair = 0.01
+//    var twoPairs = 0.01
+//    var threeOfKind = 0.01
+//    var smallStraight = 0.01
+//    var bigStraight = 0.01
+//    var full = 0.01
+//    var fourOfKind = 0.01
+//    var fiveOfKind = 0.01
+//    var chanse = 0.01
     
     var scores: [Combinations: Double] = [
         .ones: 0.01,

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TitlesScoreboardView: View {
+struct TitlesScoreboardCell: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
@@ -63,6 +63,6 @@ extension View {
 
 struct TitlesScoreboardView_Previews: PreviewProvider {
     static var previews: some View {
-        TitlesScoreboardView()
+        TitlesScoreboardCell()
     }
 }

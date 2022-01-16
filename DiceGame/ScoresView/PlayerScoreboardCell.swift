@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlayerScoreboardView: View {
+struct PlayerScoreboardCell: View {
     
     @EnvironmentObject var VM: GameViewVM
     

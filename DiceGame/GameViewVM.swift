@@ -9,17 +9,22 @@ import Foundation
 import SwiftUI
 
 class GameViewVM: ObservableObject {
+    
     var diceImages = ["dice1", "dice2", "dice3", "dice4", "dice5", "dice6"]
     
     @Published var dices = [Dice]()
-    
     @Published var playersScores = [PlayerScore]()
-    
     @Published var currentNumberOfdiceRolls = 0
-    
     @Published var currentPlayer = 1
-    
     @Published var gameIsEnded = false
+    @Published var gameIsInProgress = false
+    
+    @Published var player1isActiv = false
+    @Published var player2isActiv = false
+    @Published var player3isActiv = false
+    @Published var player4isActiv = false
+    
+    @Published var isActivPlayerAt = [false, false, false, false]
     
     func roll() {
         for number in 0...4 {
@@ -59,6 +64,25 @@ class GameViewVM: ObservableObject {
         return resultAsInt
     
     }
+    
+    func addPlayer() {
+        let newPlayer = PlayerScore(playerNumber: playersScores.count + 1)
+        playersScores.append(newPlayer)
+    }
+    
+    func removePlayer(at index: Int) {
+        playersScores.remove(at: index)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func saveAsOnes(for playerNumber: Int) {
         var totalValue = 0.0
@@ -344,9 +368,9 @@ class GameViewVM: ObservableObject {
             dices.append(dice)
         }
         
-        let player1score = PlayerScore()
-        let player2score = PlayerScore()
-        playersScores.append(player1score)
-        playersScores.append(player2score)
+//        let player1score = PlayerScore()
+//        let player2score = PlayerScore()
+//        playersScores.append(player1score)
+//        playersScores.append(player2score)
     }
 }

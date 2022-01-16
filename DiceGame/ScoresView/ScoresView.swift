@@ -23,9 +23,9 @@ struct ScoresView: View {
                     .fontWeight(.black)
                     .padding()
                 HStack(alignment: .top) {
-                    TitlesScoreboardView()
+                    TitlesScoreboardCell()
                     ForEach(1..<VM.playersScores.count + 1) { number in
-                        PlayerScoreboardView(playerNumber: number)
+                        PlayerScoreboardCell(playerNumber: number)
                     }
                     
                 }
