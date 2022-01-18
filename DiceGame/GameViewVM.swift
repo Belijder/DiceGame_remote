@@ -26,6 +26,8 @@ class GameViewVM: ObservableObject {
     
     @Published var isActivPlayerAt = [false, false, false, false]
     
+    @Published var ranking: [(String, Int)] = []
+    
     func roll() {
         for number in 0...4 {
             if dices[number].isblocked == false {
@@ -75,6 +77,19 @@ class GameViewVM: ObservableObject {
     }
     
     
+    func createPlayerRanking() {
+        var ranking: [String: Int] = [:]
+        for number in 0..<playersScores.count {
+            ranking.updateValue(calculateTotalResult(forPlayer: number + 1), forKey: playersScores[number].playerName)
+        }
+        
+        let sortedRanking = ranking.sorted { $0.1 > $1.1 }
+        self.ranking = sortedRanking
+        
+
+    }
+    
+    
     
     
     
@@ -98,6 +113,7 @@ class GameViewVM: ObservableObject {
         self.playersScores[playerNumber - 1].scores[.ones] = totalValue
         print(playersScores[playerNumber - 1].scores[.ones] as Any)
         print("Total result for player \(playerNumber): \(calculateTotalResult(forPlayer: playerNumber))")
+        print(createPlayerRanking())
     }
     
     func saveAsTwos(for playerNumber: Int) {
@@ -354,6 +370,7 @@ class GameViewVM: ObservableObject {
 //            playerScore.scores[.fiveOfKind] != 0.01 &&
 //            playerScore.scores[.chanse] != 0.01
         {
+            self.createPlayerRanking()
             return true
         } else {
             return false

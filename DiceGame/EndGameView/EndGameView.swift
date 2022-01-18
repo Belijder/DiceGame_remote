@@ -12,7 +12,6 @@ struct EndGameView: View {
     @EnvironmentObject var VM: GameViewVM
     @Environment(\.presentationMode) var presentationMode
     
-    
     var body: some View {
         ZStack {
             K.Colors.darkViolet
@@ -31,7 +30,7 @@ struct EndGameView: View {
                     .font(.title)
 
                 
-                Text("Kamila")
+                Text(VM.ranking[0].0)
                     .foregroundColor(K.Colors.yellow)
                     .font(.largeTitle)
                     .fontWeight(.black)
@@ -49,6 +48,7 @@ struct EndGameView: View {
         }
 
     }
+    
 }
 
 struct EndGameView_Previews: PreviewProvider {
