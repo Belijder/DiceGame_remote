@@ -19,16 +19,18 @@ struct PlayersSelectionsCell: View {
         
         
         VStack {
-            if player.playerName == " " {
+            if player.playerName == "" {
                 Text("Player")
                     .foregroundColor(K.Colors.darkViolet)
                     .font(.title)
                     .fontWeight(.light)
+                    .frame(height: 30)
             } else {
             Text(player.playerName)
                 .foregroundColor(K.Colors.darkViolet)
                 .font(.title)
                 .fontWeight(.bold)
+                .frame(height: 30)
             }
             
             ZStack(alignment: .topTrailing) {

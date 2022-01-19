@@ -17,7 +17,7 @@ struct PlayerScore: Identifiable, Hashable {
     
     let playerNumber: Int
     
-    var playerName = " "
+    var playerName = ""
     
     var isSelected = false
     

@@ -17,6 +17,7 @@ struct DiceGameApp: App {
             Group {
                 if gameViewVM.gameIsInProgress {
                     GameView()
+                    
                 } else {
                     StartGameView()
                 }

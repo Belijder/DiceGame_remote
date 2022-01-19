@@ -19,10 +19,6 @@ class GameViewVM: ObservableObject {
     @Published var gameIsEnded = false
     @Published var gameIsInProgress = false
     
-    @Published var player1isActiv = false
-    @Published var player2isActiv = false
-    @Published var player3isActiv = false
-    @Published var player4isActiv = false
     
     @Published var isActivPlayerAt = [false, false, false, false]
     
@@ -87,6 +83,15 @@ class GameViewVM: ObservableObject {
         self.ranking = sortedRanking
         
 
+    }
+    
+    func startNewGame() {
+        gameIsEnded = false
+        playersScores = []
+        isActivPlayerAt = [false, false, false, false]
+        currentPlayer = 1
+        currentNumberOfdiceRolls = 0
+        
     }
     
     

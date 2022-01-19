@@ -10,6 +10,8 @@ import SwiftUI
 struct GameView: View {
     
     @EnvironmentObject var gameViewVM: GameViewVM
+    
+    @Environment(\.dismiss) var dismiss
 
     @State var showSaveAsView = false
     @State var showScoreView = false
@@ -169,7 +171,10 @@ struct GameView: View {
 
                 }
                 .padding(.horizontal)
-            }.fullScreenCover(isPresented: $gameViewVM.gameIsEnded, content: EndGameView.init)
+            }.fullScreenCover(isPresented: $gameViewVM.gameIsEnded) {
+                EndGameView()
+            }
+                
             
             
             HStack {
@@ -193,6 +198,11 @@ struct GameView: View {
             ScoresView()
         }
         .environmentObject(gameViewVM)
+        .onDisappear(perform: dismissView)
+    }
+    
+    func dismissView() {
+        dismiss()
     }
 }
 

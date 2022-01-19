@@ -25,7 +25,7 @@ struct StartGameView: View {
         }
     
         for number in 0..<VM.playersScores.count {
-            if VM.playersScores[number].playerName == " " {
+            if VM.playersScores[number].playerName.trimmingCharacters(in: .whitespaces) == "" {
                 returnValue = true
             } else {
                 returnValue = false

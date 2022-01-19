@@ -11,6 +11,9 @@ struct EndGameView: View {
     
     @EnvironmentObject var VM: GameViewVM
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var startNewGame = false
     
     var body: some View {
         ZStack {
@@ -37,14 +40,46 @@ struct EndGameView: View {
                 
                 Spacer()
                 
+                Text("Final results:")
+                    .font(.title)
+                    .foregroundColor(K.Colors.yellow)
+                    .fontWeight(.black)
                 
+                VStack {
+                    ForEach(0..<VM.playersScores.count) { index in
+                        HStack {
+                            Text(VM.ranking[index].0)
+                                .frame(width: 150, alignment: .leading)
+                            Text("\(VM.ranking[index].1)")
+                        }
+                        .foregroundColor(K.Colors.yellow)
+                        .font(.title3)
+                        
+                    }
+                }
+                
+                Spacer()
+                
+                Button {
+                    // add dismiss all views
+                } label: {
+                    Text("Play Again")
+                        .font(.title)
+                        .foregroundColor(K.Colors.darkViolet)
+                        .frame(width: 150, height: 50)
+                        .background(K.Colors.yellow)
+                        .clipShape(Capsule())
+                        .padding()
+                }
+                .fullScreenCover(isPresented: $startNewGame) {
+                    StartGameView()
+                }
+            
             }
             
-            
-            
-            
-            
                 
+        }.onAppear {
+            VM.gameIsInProgress = false
         }
 
     }
