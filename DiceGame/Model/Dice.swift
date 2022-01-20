@@ -12,7 +12,7 @@ struct Dice: Identifiable {
     let id = UUID()
     var value: Int
     var image: String
-    var isblocked = false
+    var isblocked = true
     
     mutating func rollDice() {
         let number = Int.random(in: 1...6)

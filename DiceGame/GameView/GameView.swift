@@ -24,173 +24,174 @@ struct GameView: View {
     ]
     
     var body: some View {
-        ZStack {
-            Image("background")
-                .resizable()
-                .scaleEffect(1.1)
-                .ignoresSafeArea(.all)
+        GeometryReader { geo in
+            ZStack {
+                Image("background")
+                    .resizable()
+                    .scaleEffect(1.1)
+                    .ignoresSafeArea(.all)
 
-            
-            VStack {
-                Text("Player \(gameViewVM.currentPlayer)")
-                    .font(.title)
-                    .fontWeight(.light)
-                    .foregroundColor(K.Colors.darkViolet)
-                    .padding(.top, 20)
-                Text("\(gameViewVM.playersScores[gameViewVM.currentPlayer - 1].playerName)")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(K.Colors.darkViolet)
                 
-                if gameViewVM.currentNumberOfdiceRolls == 0 {
-                    Button {
-                        gameViewVM.roll()
-                    } label: {
-                        Text("Roll")
-                            .font(.title)
-                            .foregroundColor(K.Colors.darkViolet)
-                            .frame(width: 100, height: 50)
-                            .background(K.Colors.yellow)
-                            .clipShape(Capsule())
-                            .padding()
-                            .padding(.top, 100)
-                            .scaleEffect(1.3)
-                    }
-                } else {
-                    VStack {
-                        HStack {
-                            ForEach(0..<3) { index in
-                                if gameViewVM.dices[index].isblocked {
-                                    ZStack{
-                                        Image("\(gameViewVM.dices[index].image)")
-                                            .resizable()
-                                            .frame(width: 100, height: 100)
-                                            .clipShape(RoundedRectangle(cornerRadius: 28))
-                                            .padding()
-                                        RoundedRectangle(cornerRadius: 28)
-                                            .fill(K.Colors.lightViolet)
-                                            .frame(width: 120, height: 120)
-                                            .opacity(0.5)
-                                        
-                                    }
-                                    .onTapGesture {
-                                        if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
-                                            gameViewVM.dices[indx].isblocked = false
-                                        }
-                                    }
-                                } else {
-                                    Image("\(gameViewVM.dices[index].image)")
-                                        .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .clipShape(RoundedRectangle(cornerRadius: 28))
-                                        .padding()
-                                        .onTapGesture {
-                                            if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
-                                                gameViewVM.dices[indx].isblocked = true
-                                            }
-                                        }
-                                }
-                            }
-                        }
-                        
-                        HStack {
-                            ForEach(3..<5) { index in
-                                if gameViewVM.dices[index].isblocked {
-                                    ZStack{
-                                        Image("\(gameViewVM.dices[index].image)")
-                                            .resizable()
-                                            .frame(width: 100, height: 100)
-                                            .clipShape(RoundedRectangle(cornerRadius: 28))
-                                            .padding()
-                                        RoundedRectangle(cornerRadius: 28)
-                                            .fill(K.Colors.lightViolet)
-                                            .frame(width: 120, height: 120)
-                                            .opacity(0.5)
-                                        
-                                    }
-                                    .onTapGesture {
-                                        if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
-                                            gameViewVM.dices[indx].isblocked = false
-                                        }
-                                    }
-                                } else {
-                                    Image("\(gameViewVM.dices[index].image)")
-                                        .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .clipShape(RoundedRectangle(cornerRadius: 28))
-                                        .padding()
-                                        .onTapGesture {
-                                            if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
-                                                gameViewVM.dices[indx].isblocked = true
-                                            }
-                                        }
-                                }
-                            }
-                        }
-                    }.padding(.top, 20)
-                }
-                
-
-                Spacer()
-                HStack {
-                    if gameViewVM.currentNumberOfdiceRolls > 0 {
-                    Button {
-                        gameViewVM.roll()
-                        } label: {
-                            Text("Roll Again")
-                                .font(.title)
-                                .foregroundColor(K.Colors.darkViolet)
-                                .frame(width: 160, height: 50)
-                                .background(K.Colors.yellow)
-                                .clipShape(Capsule())
-                                .padding()
-                                .opacity(gameViewVM.currentNumberOfdiceRolls == 2 ? 0.5 : 1.0)
-                            
-                                
-                            
-                        }.disabled(gameViewVM.currentNumberOfdiceRolls == 2)
-                    }
-                    Spacer()
-                    
-                    if gameViewVM.currentNumberOfdiceRolls > 0 {
-                        Button {
-                            showSaveAsView = true
-                        } label: {
-                            Text("Save")
-                                .font(.title)
-                                .foregroundColor(K.Colors.darkViolet)
-                                .frame(width: 100, height: 50)
-                                .background(K.Colors.yellow)
-                                .clipShape(Capsule())
-                                .padding()
-                        }
-                        .fullScreenCover(isPresented: $showSaveAsView) {
-                            SaveAsView(currentPlayer: gameViewVM.currentPlayer)
-                        }
-                    }
-
-                }
-                .padding(.horizontal)
-            }.fullScreenCover(isPresented: $gameViewVM.gameIsEnded) {
-                EndGameView()
-            }
-                
-            
-            
-            HStack {
-                Spacer()
                 VStack {
-                    Button {
-                        self.showScoreView = true
-                    } label: {
-                        Image(systemName: "tablecells")
-                            .foregroundColor(K.Colors.yellow)
-                            .frame(width: 50, height: 50)
-                            .background(K.Colors.darkViolet)
-                            .clipShape(Circle())
-                            .padding()
+                    Text("Player \(gameViewVM.currentPlayer)")
+                        .font(.title)
+                        .fontWeight(.light)
+                        .foregroundColor(K.Colors.darkViolet)
+                        .padding(.top, 20)
+                    Text("\(gameViewVM.playersScores[gameViewVM.currentPlayer - 1].playerName)")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(K.Colors.darkViolet)
+                    
+                    if gameViewVM.currentNumberOfdiceRolls == 0 {
+                        Button {
+                            gameViewVM.roll()
+                        } label: {
+                            Text("Roll")
+                                .font(.title)
+                                .foregroundColor(K.Colors.darkViolet)
+                                .frame(width: geo.size.width * 0.25, height: geo.size.width * 0.33 / 2.5)
+                                .background(K.Colors.yellow)
+                                .clipShape(Capsule())
+                                .padding()
+                                .padding(.top, 100)
+                                .scaleEffect(1.3)
+                        }
+                    } else {
+                        VStack {
+                            HStack {
+                                ForEach(0..<3) { index in
+                                    if gameViewVM.dices[index].isblocked {
+                                        
+                                        Image("\(gameViewVM.dices[index].image)")
+                                            .resizable()
+                                            .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
+                                            .clipShape(RoundedRectangle(cornerRadius: 28))
+                                            .padding()
+                                            .onTapGesture {
+                                                if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
+                                                    gameViewVM.dices[indx].isblocked = false
+                                                }
+                                            }
+                                    } else {
+                                        ZStack{
+                                            Image("\(gameViewVM.dices[index].image)")
+                                                .resizable()
+                                                .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
+                                                .clipShape(RoundedRectangle(cornerRadius: 28))
+                                                .padding()
+                                            RoundedRectangle(cornerRadius: 28)
+                                                .fill(K.Colors.lightViolet)
+                                                .frame(width: geo.size.width / 3.5, height: geo.size.width / 3.5)
+                                                .opacity(0.5)
+                                            
+                                        }
+                                        .onTapGesture {
+                                            if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
+                                                gameViewVM.dices[indx].isblocked = true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            HStack {
+                                ForEach(3..<5) { index in
+                                    if gameViewVM.dices[index].isblocked {
+                                        
+                                        Image("\(gameViewVM.dices[index].image)")
+                                            .resizable()
+                                            .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
+                                            .clipShape(RoundedRectangle(cornerRadius: 28))
+                                            .padding()
+                                            .onTapGesture {
+                                                if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
+                                                    gameViewVM.dices[indx].isblocked = false
+                                                }
+                                            }
+
+                                    } else {
+                                        ZStack{
+                                            Image("\(gameViewVM.dices[index].image)")
+                                                .resizable()
+                                                .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
+                                                .clipShape(RoundedRectangle(cornerRadius: 28))
+                                                .padding()
+                                            RoundedRectangle(cornerRadius: 28)
+                                                .fill(K.Colors.lightViolet)
+                                                .frame(width: geo.size.width / 3.5, height: geo.size.width / 3.5)
+                                                .opacity(0.5)
+                                            
+                                        }
+                                        .onTapGesture {
+                                            if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
+                                                gameViewVM.dices[indx].isblocked = true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }.padding(.top, 20)
                     }
+                    
+
                     Spacer()
+                    HStack {
+                        if gameViewVM.currentNumberOfdiceRolls > 0 {
+                        Button {
+                            gameViewVM.roll()
+                            } label: {
+                                Text("Roll Again")
+                                    .font(.title)
+                                    .foregroundColor(K.Colors.darkViolet)
+                                    .frame(width: geo.size.width * 0.45, height: geo.size.width * 0.33 / 2.5)
+                                    .background(K.Colors.yellow)
+                                    .clipShape(Capsule())
+                                    .opacity(gameViewVM.currentNumberOfdiceRolls == 3 ? 0.5 : 1.0)
+                                
+                            }.disabled(gameViewVM.currentNumberOfdiceRolls == 3)
+                        }
+                        Spacer()
+                        
+                        if gameViewVM.currentNumberOfdiceRolls > 0 {
+                            Button {
+                                showSaveAsView = true
+                            } label: {
+                                Text("Save")
+                                    .font(.title)
+                                    .foregroundColor(K.Colors.darkViolet)
+                                    .frame(width: geo.size.width * 0.30, height: geo.size.width * 0.33 / 2.5)
+                                    .background(K.Colors.yellow)
+                                    .clipShape(Capsule())
+                            }
+                            .fullScreenCover(isPresented: $showSaveAsView) {
+                                SaveAsView(currentPlayer: gameViewVM.currentPlayer)
+                            }
+                        }
+
+                    }
+                    .padding(.horizontal)
+                }.fullScreenCover(isPresented: $gameViewVM.gameIsEnded) {
+                    EndGameView()
+                }
+                    
+                
+                
+                HStack {
+                    Spacer()
+                    VStack {
+                        Button {
+                            self.showScoreView = true
+                        } label: {
+                            Image(systemName: "tablecells")
+                                .foregroundColor(K.Colors.yellow)
+                                .frame(width: geo.size.width * 0.33 / 2.5, height: geo.size.width * 0.33 / 2.5)
+                                .background(K.Colors.darkViolet)
+                                .clipShape(Circle())
+                                .padding()
+                        }
+                        Spacer()
+                    }
                 }
             }
         }

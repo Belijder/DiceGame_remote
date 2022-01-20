@@ -31,7 +31,7 @@ class GameViewVM: ObservableObject {
             }
         }
         for number in 0...4 {
-            dices[number].isblocked = false
+            dices[number].isblocked = true
         
         }
         currentNumberOfdiceRolls += 1

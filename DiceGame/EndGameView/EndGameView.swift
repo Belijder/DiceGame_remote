@@ -61,12 +61,21 @@ struct EndGameView: View {
                 Spacer()
                 
                 Button {
-                    // add dismiss all views
+                    let rootViewController = UIApplication.shared.connectedScenes
+                            .filter {$0.activationState == .foregroundActive }
+                            .map {$0 as? UIWindowScene }
+                            .compactMap { $0 }
+                            .first?.windows
+                            .filter({ $0.isKeyWindow }).first?.rootViewController
+                        
+                        rootViewController?.dismiss(animated: true) {
+                            VM.startNewGame()
+                        }
                 } label: {
                     Text("Play Again")
                         .font(.title)
                         .foregroundColor(K.Colors.darkViolet)
-                        .frame(width: 150, height: 50)
+                        .frame(width: 170, height: 50)
                         .background(K.Colors.yellow)
                         .clipShape(Capsule())
                         .padding()

@@ -15,6 +15,8 @@ struct PlayersSelectionsCell: View {
     
     let positionInGrid: Int
     
+    @FocusState private var textFieldIsFocused: Bool
+    
     var body: some View {
         
         
@@ -74,6 +76,11 @@ struct PlayersSelectionsCell: View {
                     .textFieldStyle(.plain)
                     .frame(width: 120, height: 30, alignment: .center)
                     .background(K.Colors.lightViolet)
+                    .focused($textFieldIsFocused)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        textFieldIsFocused = false
+                    }
             }.padding()
             Spacer()  
         }.frame(width: 150, height: 220)
