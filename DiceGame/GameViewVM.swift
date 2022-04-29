@@ -49,6 +49,10 @@ class GameViewVM: ObservableObject {
             }
             
             currentNumberOfdiceRolls = 0
+            
+            for number in 0...4 {
+                dices[number].isblocked = false
+            }
         }
         
     }
@@ -359,21 +363,21 @@ class GameViewVM: ObservableObject {
     
     
     func checkIfTheGameIsOver(playerScore: PlayerScore) -> Bool {
-        if playerScore.scores[.ones] != 0.01 //&&
-//            playerScore.scores[.twos] != 0.01 &&
-//            playerScore.scores[.threes] != 0.01 &&
-//            playerScore.scores[.fours] != 0.01 &&
-//            playerScore.scores[.fives] != 0.01 &&
-//            playerScore.scores[.sixes] != 0.01 &&
-//            playerScore.scores[.pair] != 0.01 &&
-//            playerScore.scores[.twoPairs] != 0.01 &&
-//            playerScore.scores[.threeOfKind] != 0.01 &&
-//            playerScore.scores[.smallStraight] != 0.01 &&
-//            playerScore.scores[.bigStraight] != 0.01 &&
-//            playerScore.scores[.full] != 0.01 &&
-//            playerScore.scores[.fourOfKind] != 0.01 &&
-//            playerScore.scores[.fiveOfKind] != 0.01 &&
-//            playerScore.scores[.chanse] != 0.01
+        if playerScore.scores[.ones] != 0.01 &&
+            playerScore.scores[.twos] != 0.01 &&
+            playerScore.scores[.threes] != 0.01 &&
+            playerScore.scores[.fours] != 0.01 &&
+            playerScore.scores[.fives] != 0.01 &&
+            playerScore.scores[.sixes] != 0.01 &&
+            playerScore.scores[.pair] != 0.01 &&
+            playerScore.scores[.twoPairs] != 0.01 &&
+            playerScore.scores[.threeOfKind] != 0.01 &&
+            playerScore.scores[.smallStraight] != 0.01 &&
+            playerScore.scores[.bigStraight] != 0.01 &&
+            playerScore.scores[.full] != 0.01 &&
+            playerScore.scores[.fourOfKind] != 0.01 &&
+            playerScore.scores[.fiveOfKind] != 0.01 &&
+            playerScore.scores[.chanse] != 0.01
         {
             self.createPlayerRanking()
             return true
