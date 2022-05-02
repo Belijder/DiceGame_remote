@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameView: View {
     
-    @EnvironmentObject var gameViewVM: GameViewVM
+    @EnvironmentObject var gameViewVM: GameViewModel
     
     @Environment(\.dismiss) var dismiss
 
@@ -24,39 +24,16 @@ struct GameView: View {
     ]
     
     var body: some View {
-        GeometryReader { geo in
+        
             ZStack {
-                Image("background")
-                    .resizable()
-                    .scaleEffect(1.1)
-                    .ignoresSafeArea(.all)
+                background
 
                 
                 VStack {
-                    Text("Player \(gameViewVM.currentPlayer)")
-                        .font(.title)
-                        .fontWeight(.light)
-                        .foregroundColor(K.Colors.darkViolet)
-                        .padding(.top, 20)
-                    Text("\(gameViewVM.playersScores[gameViewVM.currentPlayer - 1].playerName)")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(K.Colors.darkViolet)
+                    playerInfo
                     
                     if gameViewVM.currentNumberOfdiceRolls == 0 {
-                        Button {
-                            gameViewVM.roll()
-                        } label: {
-                            Text("Roll")
-                                .font(.title)
-                                .foregroundColor(K.Colors.darkViolet)
-                                .frame(width: geo.size.width * 0.25, height: geo.size.width * 0.33 / 2.5)
-                                .background(K.Colors.yellow)
-                                .clipShape(Capsule())
-                                .padding()
-                                .padding(.top, 100)
-                                .scaleEffect(1.3)
-                        }
+                        rollButton
                     } else {
                         VStack {
                             HStack {
@@ -65,7 +42,7 @@ struct GameView: View {
                                         
                                         Image("\(gameViewVM.dices[index].image)")
                                             .resizable()
-                                            .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
+                                            .frame(width: UIScreen.main.bounds.width / 4.5, height: UIScreen.main.bounds.width / 4.5)
                                             .clipShape(RoundedRectangle(cornerRadius: 28))
                                             .padding()
                                             .onTapGesture {
@@ -77,12 +54,12 @@ struct GameView: View {
                                         ZStack{
                                             Image("\(gameViewVM.dices[index].image)")
                                                 .resizable()
-                                                .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
+                                                .frame(width: UIScreen.main.bounds.width / 4.5, height: UIScreen.main.bounds.width / 4.5)
                                                 .clipShape(RoundedRectangle(cornerRadius: 28))
                                                 .padding()
                                             RoundedRectangle(cornerRadius: 28)
                                                 .fill(K.Colors.lightViolet)
-                                                .frame(width: geo.size.width / 3.5, height: geo.size.width / 3.5)
+                                                .frame(width: UIScreen.main.bounds.width / 3.5, height: UIScreen.main.bounds.width / 3.5)
                                                 .opacity(0.5)
                                             
                                         }
@@ -101,7 +78,7 @@ struct GameView: View {
                                         
                                         Image("\(gameViewVM.dices[index].image)")
                                             .resizable()
-                                            .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
+                                            .frame(width: UIScreen.main.bounds.width / 4.5, height: UIScreen.main.bounds.width / 4.5)
                                             .clipShape(RoundedRectangle(cornerRadius: 28))
                                             .padding()
                                             .onTapGesture {
@@ -114,12 +91,12 @@ struct GameView: View {
                                         ZStack{
                                             Image("\(gameViewVM.dices[index].image)")
                                                 .resizable()
-                                                .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
+                                                .frame(width: UIScreen.main.bounds.width / 4.5, height: UIScreen.main.bounds.width / 4.5)
                                                 .clipShape(RoundedRectangle(cornerRadius: 28))
                                                 .padding()
                                             RoundedRectangle(cornerRadius: 28)
                                                 .fill(K.Colors.lightViolet)
-                                                .frame(width: geo.size.width / 3.5, height: geo.size.width / 3.5)
+                                                .frame(width: UIScreen.main.bounds.width / 3.5, height: UIScreen.main.bounds.width / 3.5)
                                                 .opacity(0.5)
                                             
                                         }
@@ -144,7 +121,7 @@ struct GameView: View {
                                 Text("Roll Again")
                                     .font(.title)
                                     .foregroundColor(K.Colors.darkViolet)
-                                    .frame(width: geo.size.width * 0.45, height: geo.size.width * 0.33 / 2.5)
+                                    .frame(width: UIScreen.main.bounds.width * 0.45, height: 50)
                                     .background(K.Colors.yellow)
                                     .clipShape(Capsule())
                                     .opacity(gameViewVM.currentNumberOfdiceRolls == 3 ? 0.5 : 1.0)
@@ -160,7 +137,7 @@ struct GameView: View {
                                 Text("Save")
                                     .font(.title)
                                     .foregroundColor(K.Colors.darkViolet)
-                                    .frame(width: geo.size.width * 0.30, height: geo.size.width * 0.33 / 2.5)
+                                    .frame(width: UIScreen.main.bounds.width * 0.30, height: 50)
                                     .background(K.Colors.yellow)
                                     .clipShape(Capsule())
                             }
@@ -185,7 +162,7 @@ struct GameView: View {
                         } label: {
                             Image(systemName: "tablecells")
                                 .foregroundColor(K.Colors.yellow)
-                                .frame(width: geo.size.width * 0.33 / 2.5, height: geo.size.width * 0.33 / 2.5)
+                                .frame(width: 30, height: 30)
                                 .background(K.Colors.darkViolet)
                                 .clipShape(Circle())
                                 .padding()
@@ -194,7 +171,7 @@ struct GameView: View {
                     }
                 }
             }
-        }
+        
         .fullScreenCover(isPresented: $showScoreView) {
             ScoresView()
         }
@@ -208,10 +185,50 @@ struct GameView: View {
 }
 
 
-
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         GameView()
     }
+}
+
+extension GameView {
+    
+    private var background: some View {
+        Image("background")
+            .resizable()
+            .scaleEffect(1.1)
+            .ignoresSafeArea(.all)
+    }
+    
+    private var playerInfo: some View {
+        VStack {
+            Text("Player \(gameViewVM.currentPlayer)")
+                .font(.title)
+                .fontWeight(.light)
+                .foregroundColor(K.Colors.darkViolet)
+                .padding(.top, 20)
+            Text("\(gameViewVM.playersScores[gameViewVM.currentPlayer - 1].playerName)")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundColor(K.Colors.darkViolet)
+        }
+    }
+    
+    private var rollButton: some View {
+        Button {
+            gameViewVM.roll()
+        } label: {
+            Text("Roll")
+                .font(.title)
+                .foregroundColor(K.Colors.darkViolet)
+                .frame(width: UIScreen.main.bounds.width / 4, height: 60)
+                .background(K.Colors.yellow)
+                .clipShape(Capsule())
+                .padding()
+                .padding(.top, 100)
+                .scaleEffect(1.3)
+        }
+    }
+    
+    
 }

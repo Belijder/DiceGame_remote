@@ -10,7 +10,7 @@ import SwiftUI
 struct StartGameView: View {
     
     
-    @EnvironmentObject var VM: GameViewVM
+    @EnvironmentObject var VM: GameViewModel
     
     @State var showGameView = false
     
@@ -34,13 +34,7 @@ struct StartGameView: View {
         
         return returnValue
     }
-    
-//    let columns = [
-//            GridItem(.flexible()),
-//            GridItem(.flexible())
-//        ]
-    
-    
+
     var body: some View {
         ZStack {
             K.Colors.lightViolet
@@ -57,18 +51,6 @@ struct StartGameView: View {
                     .foregroundColor(K.Colors.darkViolet)
                 Spacer()
                 
-//                LazyVGrid(columns: columns) {
-//                    ForEach(0..<4) { number in
-//                        if number < VM.playersScores.count {
-//                            PlayersSelectionsCell(player: VM.playersScores[number])
-//                        } else {
-//                            AddPlayerCell()
-//                                .onTapGesture {
-//                                    VM.addPlayer()
-//                                }
-//                        }
-//                    }
-//                }
                 
                 
                 VStack {

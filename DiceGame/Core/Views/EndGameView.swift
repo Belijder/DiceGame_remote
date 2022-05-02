@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EndGameView: View {
     
-    @EnvironmentObject var VM: GameViewVM
+    @EnvironmentObject var VM: GameViewModel
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.dismiss) var dismiss
     
@@ -46,7 +46,7 @@ struct EndGameView: View {
                     .fontWeight(.black)
                 
                 VStack {
-                    ForEach(0..<VM.playersScores.count) { index in
+                    ForEach(0..<VM.playersScores.count, id: \.self) { index in
                         HStack {
                             Text(VM.ranking[index].0)
                                 .frame(width: 150, alignment: .leading)

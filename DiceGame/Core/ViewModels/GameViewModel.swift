@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class GameViewVM: ObservableObject {
+class GameViewModel: ObservableObject {
     
     var diceImages = ["dice1", "dice2", "dice3", "dice4", "dice5", "dice6"]
     

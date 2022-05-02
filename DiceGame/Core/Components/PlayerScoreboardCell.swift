@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerScoreboardCell: View {
     
-    @EnvironmentObject var VM: GameViewVM
+    @EnvironmentObject var VM: GameViewModel
     
     let playerNumber: Int
     

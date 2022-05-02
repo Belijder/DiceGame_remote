@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SaveAsView: View {
     
-    @EnvironmentObject var VM: GameViewVM
+    @EnvironmentObject var VM: GameViewModel
     @Environment(\.dismiss) var dismiss
     
     var currentPlayer: Int

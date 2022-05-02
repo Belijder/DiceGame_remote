@@ -10,14 +10,14 @@ import SwiftUI
 @main
 struct DiceGameApp: App {
     
-    @StateObject var gameViewVM = GameViewVM()
+    @StateObject var gameViewVM = GameViewModel()
     
     var body: some Scene {
         WindowGroup {
             Group {
                 if gameViewVM.gameIsInProgress {
                     GameView()
-                    
+
                 } else {
                     StartGameView()
                 }
