@@ -9,12 +9,9 @@ import SwiftUI
 
 struct PlayersSelectionsCell: View {
     
-    @EnvironmentObject var VM: GameViewModel
-    
+    @ObservedObject var vm: GameViewModel
     @State var player: PlayerScore
-    
     let positionInGrid: Int
-    
     @FocusState private var textFieldIsFocused: Bool
     
     var body: some View {
@@ -48,9 +45,9 @@ struct PlayersSelectionsCell: View {
                 .frame(width: 80, height: 80, alignment: .center)
                 
                 Button {
-                    if let index = VM.playersScores.firstIndex(where: { $0.id == player.id }) {
-                        VM.removePlayer(at: index)
-                        VM.isActivPlayerAt[positionInGrid - 1] = false
+                    if let index = vm.gameManager.playersScores.firstIndex(where: { $0.id == player.id }) {
+                        vm.gameManager.removePlayer(at: index)
+                        vm.gameManager.isActivPlayerAt[positionInGrid - 1] = false
                     }
                     
                 } label: {
@@ -68,8 +65,8 @@ struct PlayersSelectionsCell: View {
                     .frame(width: 140, height: 40, alignment: .center)
                 TextField("Name", text: $player.playerName)
                     .onChange(of: player, perform: { newValue in
-                        if let inx = VM.playersScores.firstIndex(where: { $0.id == player.id } ) {
-                            VM.playersScores[inx] = player
+                        if let inx = vm.gameManager.playersScores.firstIndex(where: { $0.id == player.id } ) {
+                            vm.gameManager.playersScores[inx] = player
                         }
                     })
                     .multilineTextAlignment(.center)
@@ -83,13 +80,20 @@ struct PlayersSelectionsCell: View {
                     }
             }.padding()
             Spacer()  
-        }.frame(width: 150, height: 220)
+        }.frame(width: UIScreen.main.bounds.width * 0.5, height: 220)
         
     }
+    
+    init(vm: GameViewModel, player: PlayerScore, positionInGrid: Int) {
+        self.vm = vm
+        _player = State(wrappedValue: player)
+        self.positionInGrid = positionInGrid
+    }
+    
 }
 
 struct PlayersSelectionsCell_Previews: PreviewProvider {
     static var previews: some View {
-        PlayersSelectionsCell(player: PlayerScore(playerNumber: 1, playerName: "Kuba", scores: [:]), positionInGrid: 1)
+        PlayersSelectionsCell(vm: GameViewModel(gameManager: GameManager()), player: PlayerScore(playerNumber: 1, playerName: "Kuba", scores: [:]), positionInGrid: 1)
     }
 }

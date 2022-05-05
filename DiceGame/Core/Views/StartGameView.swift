@@ -10,7 +10,7 @@ import SwiftUI
 struct StartGameView: View {
     
     
-    @EnvironmentObject var VM: GameViewModel
+    @ObservedObject var vm: GameViewModel
     
     @State var showGameView = false
     
@@ -18,14 +18,14 @@ struct StartGameView: View {
         
         var returnValue = true
         
-        if VM.playersScores.count == 0 {
+        if vm.gameManager.playersScores.count == 0 {
             returnValue = true
         } else {
             returnValue = false
         }
     
-        for number in 0..<VM.playersScores.count {
-            if VM.playersScores[number].playerName.trimmingCharacters(in: .whitespaces) == "" {
+        for number in 0..<vm.gameManager.playersScores.count {
+            if vm.gameManager.playersScores[number].playerName.trimmingCharacters(in: .whitespaces) == "" {
                 returnValue = true
             } else {
                 returnValue = false
@@ -55,46 +55,46 @@ struct StartGameView: View {
                 
                 VStack {
                     HStack {
-                        if VM.isActivPlayerAt[0] {
-                            PlayersSelectionsCell(player: VM.playersScores[VM.playersScores.count - 1], positionInGrid: 1)
+                        if vm.gameManager.isActivPlayerAt[0] {
+                            PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 1)
                         } else {
                             AddPlayerCell()
                                 .onTapGesture {
-                                    VM.addPlayer()
-                                    VM.isActivPlayerAt[0] = true
+                                    vm.gameManager.addPlayer()
+                                    vm.gameManager.isActivPlayerAt[0] = true
                                 }
                         }
 
-                        if VM.isActivPlayerAt[1] {
-                            PlayersSelectionsCell(player: VM.playersScores[VM.playersScores.count - 1], positionInGrid: 2)
+                        if vm.gameManager.isActivPlayerAt[1] {
+                            PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 2)
                         } else {
                             AddPlayerCell()
                                 .onTapGesture {
-                                    VM.addPlayer()
-                                    VM.isActivPlayerAt[1] = true
+                                    vm.gameManager.addPlayer()
+                                    vm.gameManager.isActivPlayerAt[1] = true
                                 }
                         }
 
                     }
 
                     HStack {
-                        if VM.isActivPlayerAt[2] {
-                            PlayersSelectionsCell(player: VM.playersScores[VM.playersScores.count - 1], positionInGrid: 3)
+                        if vm.gameManager.isActivPlayerAt[2] {
+                            PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 3)
                         } else {
                             AddPlayerCell()
                                 .onTapGesture {
-                                    VM.addPlayer()
-                                    VM.isActivPlayerAt[2] = true
+                                    vm.gameManager.addPlayer()
+                                    vm.gameManager.isActivPlayerAt[2] = true
                                 }
                         }
 
-                        if VM.isActivPlayerAt[3] {
-                            PlayersSelectionsCell(player: VM.playersScores[VM.playersScores.count - 1], positionInGrid: 4)
+                        if vm.gameManager.isActivPlayerAt[3] {
+                            PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 4)
                         } else {
                             AddPlayerCell()
                                 .onTapGesture {
-                                    VM.addPlayer()
-                                    VM.isActivPlayerAt[3] = true
+                                    vm.gameManager.addPlayer()
+                                    vm.gameManager.isActivPlayerAt[3] = true
                                 }
                         }
 
@@ -116,19 +116,23 @@ struct StartGameView: View {
                         .padding()
                         .opacity(disableStartButton ? 0.5 : 1.0)
                 }
-                .fullScreenCover(isPresented: $showGameView) {
-                    GameView()
-                }
+//                .fullScreenCover(isPresented: $showGameView) {
+//                    GameView()
+//                }
                 .disabled(disableStartButton)
 
                 
             }
         }
     }
+    
+    init(vm: GameViewModel) {
+        self.vm = vm
+    }
 }
 
 struct StartGameView_Previews: PreviewProvider {
     static var previews: some View {
-        StartGameView()
+        StartGameView(vm: GameViewModel(gameManager: GameManager()))
     }
 }

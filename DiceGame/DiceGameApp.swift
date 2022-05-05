@@ -10,18 +10,25 @@ import SwiftUI
 @main
 struct DiceGameApp: App {
     
-    @StateObject var gameViewVM = GameViewModel()
+    @StateObject var gameManager: GameManager
     
     var body: some Scene {
         WindowGroup {
-            Group {
-                if gameViewVM.gameIsInProgress {
-                    GameView()
-
-                } else {
-                    StartGameView()
-                }
-            }.environmentObject(gameViewVM)
+            GameView(gameManager: gameManager)
+            
+//            Group {
+//                if gameManager.gameIsInProgress {
+//                    GameView()
+//
+//                } else {
+//                    StartGameView()
+//                }
+//            }
         }
+        
+    }
+    
+    init() {
+        _gameManager = StateObject(wrappedValue: GameManager())
     }
 }

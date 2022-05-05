@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScoresView: View {
     
-    @EnvironmentObject var VM: GameViewModel
+    @ObservedObject var vm: GameViewModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -25,10 +25,9 @@ struct ScoresView: View {
                         .padding()
                     HStack(alignment: .top) {
                         TitlesScoreboardCell()
-                        ForEach(1..<VM.playersScores.count + 1, id:\.self) { number in
-                            PlayerScoreboardCell(playerNumber: number)
+                        ForEach(1..<vm.gameManager.playersScores.count + 1, id:\.self) { number in
+                            PlayerScoreboardCell(vm: vm, playerNumber: number)
                         }
-                        
                     }
                     Spacer()
                 }
@@ -51,10 +50,14 @@ struct ScoresView: View {
         }
         
     }
+    
+    init(vm: GameViewModel) {
+        self.vm = vm
+    }
 }
 
 struct ScoresView_Previews: PreviewProvider {
     static var previews: some View {
-        ScoresView()
+        ScoresView(vm: GameViewModel(gameManager: GameManager()))
     }
 }

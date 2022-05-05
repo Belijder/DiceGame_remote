@@ -9,14 +9,14 @@ import SwiftUI
 
 struct PlayerScoreboardCell: View {
     
-    @EnvironmentObject var VM: GameViewModel
+    @ObservedObject var vm: GameViewModel
     
     let playerNumber: Int
     
     
     var body: some View {
         
-        let scores = VM.playersScores[playerNumber - 1].scores
+        let scores = vm.gameManager.playersScores[playerNumber - 1].scores
         
         return VStack {
             Group {
@@ -136,15 +136,16 @@ struct PlayerScoreboardCell: View {
                 Text("")
                     .scoreboardScoreStyle()
             }
-                Text("\(VM.calculateTotalResult(forPlayer: playerNumber))")
+                Text("\(vm.gameManager.calculateTotalResult(forPlayer: playerNumber))")
                     .scoreboardScoreStyle()
             }
-            
         }
-
-        
     }
     
+    init(vm: GameViewModel, playerNumber: Int) {
+        self.vm = vm
+        self.playerNumber = playerNumber
+    }
 }
         
 
@@ -167,10 +168,10 @@ extension View {
     }
 }
 
-//struct ScoreboardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlayerScoreboardView(playerNumber: 1)
-//    }
-//}
+struct PlayerScoreboardCell_Previews: PreviewProvider {
+    static var previews: some View {
+        PlayerScoreboardCell(vm: GameViewModel(gameManager: GameManager()), playerNumber: 1)
+    }
+}
 
 

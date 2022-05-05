@@ -9,7 +9,8 @@ import SwiftUI
 
 struct EndGameView: View {
     
-    @EnvironmentObject var VM: GameViewModel
+    @ObservedObject var vm: GameViewModel
+    
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.dismiss) var dismiss
     
@@ -33,7 +34,7 @@ struct EndGameView: View {
                     .font(.title)
 
                 
-                Text(VM.ranking[0].0)
+                Text(vm.gameManager.ranking[0].0)
                     .foregroundColor(K.Colors.yellow)
                     .font(.largeTitle)
                     .fontWeight(.black)
@@ -46,11 +47,11 @@ struct EndGameView: View {
                     .fontWeight(.black)
                 
                 VStack {
-                    ForEach(0..<VM.playersScores.count, id: \.self) { index in
+                    ForEach(0..<vm.gameManager.playersScores.count, id: \.self) { index in
                         HStack {
-                            Text(VM.ranking[index].0)
+                            Text(vm.gameManager.ranking[index].0)
                                 .frame(width: 150, alignment: .leading)
-                            Text("\(VM.ranking[index].1)")
+                            Text("\(vm.gameManager.ranking[index].1)")
                         }
                         .foregroundColor(K.Colors.yellow)
                         .font(.title3)
@@ -61,16 +62,16 @@ struct EndGameView: View {
                 Spacer()
                 
                 Button {
-                    let rootViewController = UIApplication.shared.connectedScenes
-                            .filter {$0.activationState == .foregroundActive }
-                            .map {$0 as? UIWindowScene }
-                            .compactMap { $0 }
-                            .first?.windows
-                            .filter({ $0.isKeyWindow }).first?.rootViewController
-                        
-                        rootViewController?.dismiss(animated: true) {
-                            VM.startNewGame()
-                        }
+//                    let rootViewController = UIApplication.shared.connectedScenes
+//                            .filter {$0.activationState == .foregroundActive }
+//                            .map {$0 as? UIWindowScene }
+//                            .compactMap { $0 }
+//                            .first?.windows
+//                            .filter({ $0.isKeyWindow }).first?.rootViewController
+//
+//                        rootViewController?.dismiss(animated: true) {
+//                            vm.gameManager.startNewGame()
+//                        }
                 } label: {
                     Text("Play Again")
                         .font(.title)
@@ -80,23 +81,27 @@ struct EndGameView: View {
                         .clipShape(Capsule())
                         .padding()
                 }
-                .fullScreenCover(isPresented: $startNewGame) {
-                    StartGameView()
-                }
+//                .fullScreenCover(isPresented: $startNewGame) {
+//                    StartGameView()
+//                }
             
             }
             
                 
         }.onAppear {
-            VM.gameIsInProgress = false
+            vm.gameManager.gameIsInProgress = false
         }
 
+    }
+    
+    init(vm: GameViewModel) {
+        self.vm = vm
     }
     
 }
 
 struct EndGameView_Previews: PreviewProvider {
     static var previews: some View {
-        EndGameView()
+        EndGameView(vm: GameViewModel(gameManager: GameManager()))
     }
 }

@@ -9,54 +9,36 @@ import SwiftUI
 
 struct GameView: View {
     
-    @EnvironmentObject var gameViewVM: GameViewModel
+    @StateObject var vm: GameViewModel
     
-    @Environment(\.dismiss) var dismiss
 
     @State var showSaveAsView = false
     @State var showScoreView = false
     @State var showEndGameView = false
     
-    let columns1 = [
-        GridItem(.fixed(120)),
-        GridItem(.fixed(120)),
-        GridItem(.fixed(120))
-    ]
-    
     var body: some View {
         
             ZStack {
                 background
-
-                
                 VStack {
                     playerInfo
                     
-                    if gameViewVM.currentNumberOfdiceRolls == 0 {
+                    if vm.gameManager.currentNumberOfdiceRolls == 0 {
                         rollButton
                     } else {
                         VStack {
-                            HStack {
+                            HStack(spacing: 0) {
                                 ForEach(0..<3) { index in
-                                    if gameViewVM.dices[index].isblocked {
-                                        
-                                        Image("\(gameViewVM.dices[index].image)")
-                                            .resizable()
-                                            .frame(width: UIScreen.main.bounds.width / 4.5, height: UIScreen.main.bounds.width / 4.5)
-                                            .clipShape(RoundedRectangle(cornerRadius: 28))
-                                            .padding()
+                                    if vm.gameManager.dices[index].isblocked {
+                                        DiceView(value: vm.gameManager.dices[index].value, size: UIScreen.main.bounds.width / 4.5)
                                             .onTapGesture {
-                                                if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
-                                                    gameViewVM.dices[indx].isblocked = false
+                                                if let indx = vm.gameManager.dices.firstIndex(where: { $0.id == vm.gameManager.dices[index].id }) {
+                                                    vm.gameManager.dices[indx].isblocked = false
                                                 }
                                             }
                                     } else {
                                         ZStack{
-                                            Image("\(gameViewVM.dices[index].image)")
-                                                .resizable()
-                                                .frame(width: UIScreen.main.bounds.width / 4.5, height: UIScreen.main.bounds.width / 4.5)
-                                                .clipShape(RoundedRectangle(cornerRadius: 28))
-                                                .padding()
+                                            DiceView(value: vm.gameManager.dices[index].value, size: UIScreen.main.bounds.width / 4.5)
                                             RoundedRectangle(cornerRadius: 28)
                                                 .fill(K.Colors.lightViolet)
                                                 .frame(width: UIScreen.main.bounds.width / 3.5, height: UIScreen.main.bounds.width / 3.5)
@@ -64,36 +46,27 @@ struct GameView: View {
                                             
                                         }
                                         .onTapGesture {
-                                            if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
-                                                gameViewVM.dices[indx].isblocked = true
+                                            if let indx = vm.gameManager.dices.firstIndex(where: { $0.id == vm.gameManager.dices[index].id }) {
+                                                vm.gameManager.dices[indx].isblocked = true
                                             }
                                         }
                                     }
                                 }
-                            }
+                            }.padding()
                             
-                            HStack {
+                            HStack(spacing: 0) {
                                 ForEach(3..<5) { index in
-                                    if gameViewVM.dices[index].isblocked {
-                                        
-                                        Image("\(gameViewVM.dices[index].image)")
-                                            .resizable()
-                                            .frame(width: UIScreen.main.bounds.width / 4.5, height: UIScreen.main.bounds.width / 4.5)
-                                            .clipShape(RoundedRectangle(cornerRadius: 28))
-                                            .padding()
+                                    if vm.gameManager.dices[index].isblocked {
+                                        DiceView(value: vm.gameManager.dices[index].value, size: UIScreen.main.bounds.width / 4.5)
                                             .onTapGesture {
-                                                if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
-                                                    gameViewVM.dices[indx].isblocked = false
+                                                if let indx = vm.gameManager.dices.firstIndex(where: { $0.id == vm.gameManager.dices[index].id }) {
+                                                    vm.gameManager.dices[indx].isblocked = false
                                                 }
                                             }
 
                                     } else {
                                         ZStack{
-                                            Image("\(gameViewVM.dices[index].image)")
-                                                .resizable()
-                                                .frame(width: UIScreen.main.bounds.width / 4.5, height: UIScreen.main.bounds.width / 4.5)
-                                                .clipShape(RoundedRectangle(cornerRadius: 28))
-                                                .padding()
+                                            DiceView(value: vm.gameManager.dices[index].value, size: UIScreen.main.bounds.width / 4.5)
                                             RoundedRectangle(cornerRadius: 28)
                                                 .fill(K.Colors.lightViolet)
                                                 .frame(width: UIScreen.main.bounds.width / 3.5, height: UIScreen.main.bounds.width / 3.5)
@@ -101,22 +74,22 @@ struct GameView: View {
                                             
                                         }
                                         .onTapGesture {
-                                            if let indx = gameViewVM.dices.firstIndex(where: { $0.id == gameViewVM.dices[index].id }) {
-                                                gameViewVM.dices[indx].isblocked = true
+                                            if let indx = vm.gameManager.dices.firstIndex(where: { $0.id == vm.gameManager.dices[index].id }) {
+                                                vm.gameManager.dices[indx].isblocked = true
                                             }
                                         }
                                     }
                                 }
-                            }
+                            }.padding()
                         }.padding(.top, 20)
                     }
                     
 
                     Spacer()
                     HStack {
-                        if gameViewVM.currentNumberOfdiceRolls > 0 {
+                        if vm.gameManager.currentNumberOfdiceRolls > 0 {
                         Button {
-                            gameViewVM.roll()
+                            vm.gameManager.roll()
                             } label: {
                                 Text("Roll Again")
                                     .font(.title)
@@ -124,13 +97,13 @@ struct GameView: View {
                                     .frame(width: UIScreen.main.bounds.width * 0.45, height: 50)
                                     .background(K.Colors.yellow)
                                     .clipShape(Capsule())
-                                    .opacity(gameViewVM.currentNumberOfdiceRolls == 3 ? 0.5 : 1.0)
+                                    .opacity(vm.gameManager.currentNumberOfdiceRolls == 3 ? 0.5 : 1.0)
                                 
-                            }.disabled(gameViewVM.currentNumberOfdiceRolls == 3)
+                            }.disabled(vm.gameManager.currentNumberOfdiceRolls == 3)
                         }
                         Spacer()
                         
-                        if gameViewVM.currentNumberOfdiceRolls > 0 {
+                        if vm.gameManager.currentNumberOfdiceRolls > 0 {
                             Button {
                                 showSaveAsView = true
                             } label: {
@@ -142,14 +115,15 @@ struct GameView: View {
                                     .clipShape(Capsule())
                             }
                             .fullScreenCover(isPresented: $showSaveAsView) {
-                                SaveAsView(currentPlayer: gameViewVM.currentPlayer)
+                                SaveAsView(vm: vm, currentPlayer: vm.gameManager.currentPlayer)
                             }
                         }
 
                     }
                     .padding(.horizontal)
-                }.fullScreenCover(isPresented: $gameViewVM.gameIsEnded) {
-                    EndGameView()
+                }
+                .fullScreenCover(isPresented: $vm.gameManager.gameIsEnded) {
+                    EndGameView(vm: vm)
                 }
                     
                 
@@ -173,21 +147,21 @@ struct GameView: View {
             }
         
         .fullScreenCover(isPresented: $showScoreView) {
-            ScoresView()
+            ScoresView(vm: vm)
         }
-        .environmentObject(gameViewVM)
-        .onDisappear(perform: dismissView)
+
+//        .onDisappear(perform: dismissView)
     }
     
-    func dismissView() {
-        dismiss()
+    init(gameManager: GameManager) {
+       _vm = StateObject(wrappedValue: GameViewModel(gameManager: gameManager))
     }
 }
 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(gameManager: GameManager())
     }
 }
 
@@ -202,12 +176,12 @@ extension GameView {
     
     private var playerInfo: some View {
         VStack {
-            Text("Player \(gameViewVM.currentPlayer)")
+            Text("Player \(vm.gameManager.currentPlayer)")
                 .font(.title)
                 .fontWeight(.light)
                 .foregroundColor(K.Colors.darkViolet)
                 .padding(.top, 20)
-            Text("\(gameViewVM.playersScores[gameViewVM.currentPlayer - 1].playerName)")
+            Text("\(vm.gameManager.playersScores[vm.gameManager.currentPlayer - 1].playerName)")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(K.Colors.darkViolet)
@@ -216,7 +190,7 @@ extension GameView {
     
     private var rollButton: some View {
         Button {
-            gameViewVM.roll()
+            vm.gameManager.roll()
         } label: {
             Text("Roll")
                 .font(.title)

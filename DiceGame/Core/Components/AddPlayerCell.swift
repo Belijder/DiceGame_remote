@@ -24,7 +24,7 @@ struct AddPlayerCell: View {
                     .scaledToFit()
             }.frame(width: 80, height: 80, alignment: .center)
             Spacer()
-        }.frame(width: 150, height: 220)
+        }.frame(width: UIScreen.main.bounds.width * 0.5, height: 220)
     }
 }
 
