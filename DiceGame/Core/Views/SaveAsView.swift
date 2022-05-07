@@ -21,115 +21,186 @@ struct SaveAsView: View {
                     if vm.gameManager.playersScores[currentPlayer - 1].scores[.ones] == 0.01 {
                         HStack {
                             Button("Ones") {
-                                vm.gameManager.saveAsOnes(for: currentPlayer)
+                                vm.gameManager.saveAs(.ones, for: currentPlayer)
                                 vm.gameManager.changePlayer()
                                 dismiss()
                             }
                             Spacer()
-                            Text("\(vm.gameManager.calculatePossiblePointValueToSaveAsOnes().asStringWith0decimalPlaces())")
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsOnes().asStringWith0decimalPlaces())")
+                                .foregroundColor(Color.secondary)
                         }
                     }
                     if vm.gameManager.playersScores[currentPlayer - 1].scores[.twos] == 0.01 {
-                        Button("Twos") {
-                            vm.gameManager.saveAsTwos(for: currentPlayer)
-                            vm.gameManager.changePlayer()
-                            dismiss()
+                        HStack {
+                            Button("Twos") {
+                                vm.gameManager.saveAs(.twos, for: currentPlayer)
+                                vm.gameManager.changePlayer()
+                                dismiss()
+                            }
+                            Spacer()
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsTwos().asStringWith0decimalPlaces())")
+                                .foregroundColor(Color.secondary)
                         }
                     }
                     if vm.gameManager.playersScores[currentPlayer - 1].scores[.threes] == 0.01 {
-                        Button("Threes") {
-                            vm.gameManager.saveAsThrees(for: currentPlayer)
-                            vm.gameManager.changePlayer()
-                            dismiss()
+                        HStack {
+                            Button("Threes") {
+                                vm.gameManager.saveAs(.threes, for: currentPlayer)
+                                vm.gameManager.changePlayer()
+                                dismiss()
+                            }
+                            Spacer()
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsThrees().asStringWith0decimalPlaces())")
+                                .foregroundColor(Color.secondary)
                         }
                     }
                     if vm.gameManager.playersScores[currentPlayer - 1].scores[.fours] == 0.01 {
-                        Button("Fours") {
-                            vm.gameManager.saveAsFours(for: currentPlayer)
-                            vm.gameManager.changePlayer()
-                            dismiss()
+                        HStack {
+                            Button("Fours") {
+                                vm.gameManager.saveAs(.fours, for: currentPlayer)
+                                vm.gameManager.changePlayer()
+                                dismiss()
+                            }
+                            Spacer()
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFours().asStringWith0decimalPlaces())")
+                                .foregroundColor(Color.secondary)
                         }
                     }
                     if vm.gameManager.playersScores[currentPlayer - 1].scores[.fives] == 0.01 {
-                        Button("Fives") {
-                            vm.gameManager.saveAsFives(for: currentPlayer)
-                            vm.gameManager.changePlayer()
-                            dismiss()
+                        HStack {
+                            Button("Fives") {
+                                vm.gameManager.saveAs(.fives, for: currentPlayer)
+                                vm.gameManager.changePlayer()
+                                dismiss()
+                            }
+                            Spacer()
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFives().asStringWith0decimalPlaces())")
+                                .foregroundColor(Color.secondary)
                         }
                     }
                     if vm.gameManager.playersScores[currentPlayer - 1].scores[.sixes] == 0.01 {
-                        Button("Sixes") {
-                            vm.gameManager.saveAsSixes(for: currentPlayer)
-                            vm.gameManager.changePlayer()
-                            dismiss()
+                        HStack {
+                            Button("Sixes") {
+                                vm.gameManager.saveAs(.sixes, for: currentPlayer)
+                                vm.gameManager.changePlayer()
+                                dismiss()
+                            }
+                            Spacer()
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsSixes().asStringWith0decimalPlaces())")
+                                .foregroundColor(Color.secondary)
                         }
                     }
                     
                     
                     Section() {
                         if vm.gameManager.playersScores[currentPlayer - 1].scores[.pair] == 0.01 {
-                            Button("Pair") {
-                                vm.gameManager.saveAsPair(for: currentPlayer)
-                                vm.gameManager.changePlayer()
-                                dismiss()
+                            HStack {
+                                Button("Pair") {
+                                    vm.gameManager.saveAs(.pair, for: currentPlayer)
+                                    vm.gameManager.changePlayer()
+                                    dismiss()
+                                }
+                                Spacer()
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsPair().asStringWith0decimalPlaces())")
+                                    .foregroundColor(Color.secondary)
                             }
                         }
                         if vm.gameManager.playersScores[currentPlayer - 1].scores[.twoPairs] == 0.01 {
-                            Button("Two Pairs") {
-                                vm.gameManager.saveAsTwoPairs(for: currentPlayer)
-                                vm.gameManager.changePlayer()
-                                dismiss()
+                            HStack {
+                                Button("Two Pairs") {
+                                    vm.gameManager.saveAs(.twoPairs, for: currentPlayer)
+                                    vm.gameManager.changePlayer()
+                                    dismiss()
+                                }
+                                Spacer()
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsTwoPairs().asStringWith0decimalPlaces())")
+                                    .foregroundColor(Color.secondary)
                             }
                         }
                         if vm.gameManager.playersScores[currentPlayer - 1].scores[.threeOfKind] == 0.01 {
-                            Button("Three of a kind") {
-                                vm.gameManager.saveAsThreeOfKind(for: currentPlayer)
-                                vm.gameManager.changePlayer()
-                                dismiss()
+                            HStack {
+                                Button("Three of a kind") {
+                                    vm.gameManager.saveAs(.threeOfKind, for: currentPlayer)
+                                    vm.gameManager.changePlayer()
+                                    dismiss()
+                                }
+                                Spacer()
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsThreeOfKind().asStringWith0decimalPlaces())")
+                                    .foregroundColor(Color.secondary)
                             }
                         }
                         if vm.gameManager.playersScores[currentPlayer - 1].scores[.smallStraight] == 0.01 {
-                            Button("Small Straight") {
-                                vm.gameManager.saveAsSmallStraight(for: currentPlayer)
-                                vm.gameManager.changePlayer()
-                                dismiss()
+                            HStack {
+                                Button("Small Straight") {
+                                    vm.gameManager.saveAs(.smallStraight, for: currentPlayer)
+                                    vm.gameManager.changePlayer()
+                                    dismiss()
+                                }
+                                Spacer()
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsSmallStraight().asStringWith0decimalPlaces())")
+                                    .foregroundColor(Color.secondary)
                             }
                         }
                         if vm.gameManager.playersScores[currentPlayer - 1].scores[.bigStraight] == 0.01 {
-                            Button("Big Straight") {
-                                vm.gameManager.saveAsBigStraight(for: currentPlayer)
-                                vm.gameManager.changePlayer()
-                                dismiss()
+                            HStack {
+                                Button("Big Straight") {
+                                    vm.gameManager.saveAs(.bigStraight, for: currentPlayer)
+                                    vm.gameManager.changePlayer()
+                                    dismiss()
+                                }
+                                Spacer()
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsBigStraight().asStringWith0decimalPlaces())")
+                                    .foregroundColor(Color.secondary)
                             }
                         }
                         if vm.gameManager.playersScores[currentPlayer - 1].scores[.full] == 0.01 {
-                            Button("Full") {
-                                vm.gameManager.saveAsFull(for: currentPlayer)
-                                vm.gameManager.changePlayer()
-                                dismiss()
+                            HStack {
+                                Button("Full") {
+                                    vm.gameManager.saveAs(.full, for: currentPlayer)
+                                    vm.gameManager.changePlayer()
+                                    dismiss()
+                                }
+                                Spacer()
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFull().asStringWith0decimalPlaces())")
+                                    .foregroundColor(Color.secondary)
                             }
                         }
                         if vm.gameManager.playersScores[currentPlayer - 1].scores[.fourOfKind] == 0.01 {
-                            Button("Four of a kind") {
-                                vm.gameManager.saveAsFourOfKind(for: currentPlayer)
-                                vm.gameManager.changePlayer()
-                                dismiss()
+                            HStack {
+                                Button("Four of a kind") {
+                                    vm.gameManager.saveAs(.fourOfKind, for: currentPlayer)
+                                    vm.gameManager.changePlayer()
+                                    dismiss()
+                                }
+                                Spacer()
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFourOfKind().asStringWith0decimalPlaces())")
+                                    .foregroundColor(Color.secondary)
                             }
                         }
                         if vm.gameManager.playersScores[currentPlayer - 1].scores[.fiveOfKind] == 0.01 {
-                            Button("Five of a kind") {
-                                vm.gameManager.saveAsFiveOfKind(for: currentPlayer)
-                                vm.gameManager.changePlayer()
-                                dismiss()
+                            HStack {
+                                Button("Five of a kind") {
+                                    vm.gameManager.saveAs(.fiveOfKind, for: currentPlayer)
+                                    vm.gameManager.changePlayer()
+                                    dismiss()
+                                }
+                                Spacer()
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFiveOfKind().asStringWith0decimalPlaces())")
+                                    .foregroundColor(Color.secondary)
                             }
                         }
                     }
                     Section {
                         if vm.gameManager.playersScores[currentPlayer - 1].scores[.chanse] == 0.01 {
-                            Button("Chanse") {
-                                vm.gameManager.saveAsChanse(for: currentPlayer)
-                                vm.gameManager.changePlayer()
-                                dismiss()
+                            HStack {
+                                Button("Chanse") {
+                                    vm.gameManager.saveAs(.chanse, for: currentPlayer)
+                                    vm.gameManager.changePlayer()
+                                    dismiss()
+                                }
+                                Spacer()
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsChanse().asStringWith0decimalPlaces())")
+                                    .foregroundColor(Color.secondary)
                             }
                         }
                     }

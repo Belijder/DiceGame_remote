@@ -21,8 +21,17 @@ class GameManager: ObservableObject {
     
     @Published var ranking: [(String, Int)] = []
     
+    enum Combinations {
+        case ones, twos, threes, fours, fives, sixes, pair, twoPairs, threeOfKind, smallStraight, bigStraight, full, fourOfKind, fiveOfKind, chanse
+    }
+    
     
     func roll() {
+        
+        if currentNumberOfdiceRolls > 0 {
+            guard dices.contains(where: { $0.isblocked == false }) else { return }
+        }
+        
         for number in 0...4 {
             if dices[number].isblocked == false {
                 dices[number].rollDice()
@@ -87,249 +96,215 @@ class GameManager: ObservableObject {
     
     
     
+    func makeSortedArrayOfDicesResults() -> [Int] {
+        var aor: [Int] = []
+        for dice in dices {
+            aor.append(dice.value)
+        }
+        aor.sort()
+        return aor
+    }
+    
     func calculatePossiblePointValueToSaveAsOnes() -> Double {
-        var totalValue = 0.0
         var countDices = 0
         for dice in dices {
             if dice.value == 1 {
                 countDices += 1
             }
         }
-        totalValue = Double(countDices * 1)
-        return totalValue
+        return Double(countDices * 1)
     }
     
-    
-    func saveAsOnes(for playerNumber: Int) {
-        self.playersScores[playerNumber - 1].scores[.ones] = calculatePossiblePointValueToSaveAsOnes()
-    }
-    
-    func saveAsTwos(for playerNumber: Int) {
-        var totalValue = 0.0
+    func calculatePossiblePointValueToSaveAsTwos() -> Double {
         var countDices = 0
-        
         for dice in dices {
             if dice.value == 2 {
                 countDices += 1
             }
         }
-        
-        totalValue = Double(countDices * 2)
-        self.playersScores[playerNumber - 1].scores[.twos] = totalValue
+        return Double(countDices * 2)
     }
     
-    func saveAsThrees(for playerNumber: Int) {
-        var totalValue = 0.0
+    func calculatePossiblePointValueToSaveAsThrees() -> Double {
         var countDices = 0
-        
         for dice in dices {
             if dice.value == 3 {
                 countDices += 1
             }
         }
-        
-        totalValue = Double(countDices * 3)
-        self.playersScores[playerNumber - 1].scores[.threes] = totalValue
+        return Double(countDices * 3)
     }
     
-    func saveAsFours(for playerNumber: Int) {
-        var totalValue = 0.0
+    func calculatePossiblePointValueToSaveAsFours() -> Double {
         var countDices = 0
-        
         for dice in dices {
             if dice.value == 4 {
                 countDices += 1
             }
         }
-        
-        totalValue = Double(countDices * 4)
-        self.playersScores[playerNumber - 1].scores[.fours] = totalValue
+        return Double(countDices * 4)
     }
     
-    func saveAsFives(for playerNumber: Int) {
-        var totalValue = 0.0
+    func calculatePossiblePointValueToSaveAsFives() -> Double {
         var countDices = 0
-        
         for dice in dices {
             if dice.value == 5 {
                 countDices += 1
             }
         }
-        
-        totalValue = Double(countDices * 5)
-        self.playersScores[playerNumber - 1].scores[.fives] = totalValue
-        print(playersScores[playerNumber - 1].scores[.fives] as Any)
-        print("Total result for player \(playerNumber): \(calculateTotalResult(forPlayer: playerNumber))")
+        return Double(countDices * 5)
     }
     
-    func saveAsSixes(for playerNumber: Int) {
-        var totalValue = 0.0
+    func calculatePossiblePointValueToSaveAsSixes() -> Double {
         var countDices = 0
-        
         for dice in dices {
             if dice.value == 6 {
                 countDices += 1
             }
         }
-        
-        totalValue = Double(countDices * 6)
-        self.playersScores[playerNumber - 1].scores[.sixes] = totalValue
-    }
-    
-    func saveAsPair(for playerNumber: Int) {
-        var aor: [Int] = []
-        for dice in dices {
-            aor.append(dice.value)
-        }
-        aor.sort()
-        
-        if aor[4] == aor[3] {
-            playersScores[playerNumber - 1].scores[.pair] = Double(aor[4] + aor[3])
-        } else if aor[3] == aor[2] {
-            playersScores[playerNumber - 1].scores[.pair]  = Double(aor[3] + aor[2])
-        } else if aor[2] == aor[1] {
-            playersScores[playerNumber - 1].scores[.pair]  = Double(aor[2] + aor[1])
-        } else if aor[1] == aor[0] {
-            playersScores[playerNumber - 1].scores[.pair]  = Double(aor[1] + aor[0])
-        } else {
-            playersScores[playerNumber - 1].scores[.pair]  = 0
-        }
-    }
-    
-    func saveAsTwoPairs(for playerNumber: Int) {
-        var aor: [Int] = []
-        for dice in dices {
-            aor.append(dice.value)
-        }
-        aor.sort()
-        
-        if aor[4] == aor[3] && aor[2] == aor[1] {
-            let totalValue = Double(aor[4] + aor[3] + aor[2] + aor[1])
-            playersScores[playerNumber - 1].scores[.twoPairs] = totalValue
-        } else if aor[4] == aor[3] && aor[1] == aor[0] {
-            let totalValue = Double(aor[4] + aor[3] + aor[1] + aor[0])
-            playersScores[playerNumber - 1].scores[.twoPairs] = totalValue
-        } else if aor[3] == aor[2] && aor[1] == aor[0] {
-            let totalValue = Double(aor[3] + aor[2] + aor[1] + aor[0])
-            playersScores[playerNumber - 1].scores[.twoPairs] = totalValue
-        } else {
-            playersScores[playerNumber - 1].scores[.twoPairs] = 0
-        }
-    }
-    
-    func saveAsThreeOfKind(for playerNumber: Int) {
-        var aor: [Int] = []
-        for dice in dices {
-            aor.append(dice.value)
-        }
-        aor.sort()
-        
-        if aor[4] == aor[3] && aor [3] == aor[2] {
-            let totaValue = Double(aor[4] + aor[3] + aor[2])
-            playersScores[playerNumber - 1].scores[.threeOfKind] = totaValue
-        } else if aor[3] == aor[2] && aor [2] == aor[1] {
-            let totaValue = Double(aor[3] + aor[2] + aor[1])
-            playersScores[playerNumber - 1].scores[.threeOfKind] = totaValue
-        } else if aor[2] == aor[1] && aor [1] == aor[0] {
-            let totaValue = Double(aor[2] + aor[1] + aor[0])
-            playersScores[playerNumber - 1].scores[.threeOfKind] = totaValue
-        } else {
-            playersScores[playerNumber - 1].scores[.threeOfKind] = 0
-        }
-    }
-    
-    func saveAsSmallStraight(for playerNumber: Int) {
-        var aor: [Int] = []
-        for dice in dices {
-            aor.append(dice.value)
-        }
-        
-        if aor.contains(1) && aor.contains(2) && aor.contains(3) && aor.contains(4) && aor.contains(5) {
-            playersScores[playerNumber - 1].scores[.smallStraight] = 15
-        } else {
-            playersScores[playerNumber - 1].scores[.smallStraight] = 0
-        }
-        print(playersScores[playerNumber - 1].scores[.smallStraight] as Any)
-    }
-    
-    func saveAsBigStraight(for playerNumber: Int) {
-        var aor: [Int] = []
-        for dice in dices {
-            aor.append(dice.value)
-        }
-        
-        if aor.contains(6) && aor.contains(2) && aor.contains(3) && aor.contains(4) && aor.contains(5) {
-            playersScores[playerNumber - 1].scores[.bigStraight] = 20
-        } else {
-            playersScores[playerNumber - 1].scores[.bigStraight] = 0
-            
-        }
-        print(playersScores[playerNumber - 1].scores[.bigStraight] as Any)
-    }
-    
-    func saveAsFull(for playerNumber: Int) {
-        var aor: [Int] = []
-        for dice in dices {
-            aor.append(dice.value)
-        }
-        aor.sort()
-        
-        if aor[4] == aor[3] && aor[3] == aor[2] && aor[1] == aor[0] {
-            playersScores[playerNumber - 1].scores[.full] = Double(aor.reduce(0, +))
-        } else if aor[2] == aor[1] && aor[2] == aor[1] && aor[4] == aor[3] {
-            playersScores[playerNumber - 1].scores[.full] = Double(aor.reduce(0, +))
-        } else {
-            playersScores[playerNumber - 1].scores[.full] = 0
-        }
-        print(playersScores[playerNumber - 1].scores[.full] as Any)
-    }
-    
-    func saveAsFourOfKind(for playerNumber: Int) {
-        var aor: [Int] = []
-        for dice in dices {
-            aor.append(dice.value)
-        }
-        aor.sort()
-        
-        if aor[4] == aor[3] && aor[4] == aor[2] && aor[4] == aor[1] {
-            playersScores[playerNumber - 1].scores[.fourOfKind] = Double(aor[4] + aor[3] + aor[2] + aor[1])
-        } else if aor[0] == aor[1] && aor[0] == aor[2] && aor[0] == aor[3] {
-            playersScores[playerNumber - 1].scores[.fourOfKind] = Double(aor[0] + aor[1] + aor[2] + aor[3])
-        } else {
-            playersScores[playerNumber - 1].scores[.fourOfKind] = 0
-        }
-        
-        print(playersScores[playerNumber - 1].scores[.fourOfKind] as Any)
-    }
-    
-    func saveAsFiveOfKind(for playerNumber: Int) {
-        var aor: [Int] = []
-        for dice in dices {
-            aor.append(dice.value)
-        }
-        aor.sort()
-        
-        if aor[4] == aor[3] && aor[4] == aor[2] && aor[4] == aor[1] && aor[4] == aor[0] {
-            playersScores[playerNumber - 1].scores[.fiveOfKind] = 50
-        } else {
-            playersScores[playerNumber - 1].scores[.fiveOfKind] = 0
-        }
-        
-        print(playersScores[playerNumber - 1].scores[.fiveOfKind] as Any)
+        return Double(countDices * 6)
     }
 
-    
-    func saveAsChanse(for playerNumber: Int) {
-        var totalValue = 0.0
-        for dice in dices {
-            totalValue += Double(dice.value)
+    func calculatePossiblePointValueToSaveAsPair() -> Double {
+        let aor = makeSortedArrayOfDicesResults()
+        
+        if aor[4] == aor[3] {
+            return Double(aor[4] + aor[3])
+        } else if aor[3] == aor[2] {
+            return Double(aor[3] + aor[2])
+        } else if aor[2] == aor[1] {
+            return Double(aor[2] + aor[1])
+        } else if aor[1] == aor[0] {
+            return Double(aor[1] + aor[0])
+        } else {
+            return 0
         }
-        self.playersScores[playerNumber - 1].scores[.chanse] = totalValue
-        print(playersScores[playerNumber - 1].scores[.chanse] as Any)
     }
     
+    func calculatePossiblePointValueToSaveAsTwoPairs() -> Double {
+        let aor = makeSortedArrayOfDicesResults()
+        
+        if aor[4] == aor[3] && aor[2] == aor[1] {
+            return Double(aor[4] + aor[3] + aor[2] + aor[1])
+        } else if aor[4] == aor[3] && aor[1] == aor[0] {
+            return Double(aor[4] + aor[3] + aor[1] + aor[0])
+        } else if aor[3] == aor[2] && aor[1] == aor[0] {
+            return  Double(aor[3] + aor[2] + aor[1] + aor[0])
+        } else {
+            return 0
+        }
+    }
     
+    func calculatePossiblePointValueToSaveAsThreeOfKind() -> Double {
+        let aor = makeSortedArrayOfDicesResults()
+        
+        if aor[4] == aor[3] && aor [3] == aor[2] {
+            return Double(aor[4] + aor[3] + aor[2])
+        } else if aor[3] == aor[2] && aor [2] == aor[1] {
+            return Double(aor[3] + aor[2] + aor[1])
+
+        } else if aor[2] == aor[1] && aor [1] == aor[0] {
+            return Double(aor[2] + aor[1] + aor[0])
+        } else {
+            return 0
+        }
+    }
     
+    func calculatePossiblePointValueToSaveAsSmallStraight() -> Double {
+        let aor = makeSortedArrayOfDicesResults()
+        
+        if aor.contains(1) && aor.contains(2) && aor.contains(3) && aor.contains(4) && aor.contains(5) {
+            return 15
+        } else {
+            return 0
+        }
+    }
+    
+    func calculatePossiblePointValueToSaveAsBigStraight() -> Double {
+        let aor = makeSortedArrayOfDicesResults()
+        
+        if aor.contains(6) && aor.contains(2) && aor.contains(3) && aor.contains(4) && aor.contains(5) {
+            return 20
+        } else {
+            return 0
+            
+        }
+    }
+    
+    func calculatePossiblePointValueToSaveAsFull() -> Double {
+        let aor = makeSortedArrayOfDicesResults()
+        
+        if aor[4] == aor[3] && aor[3] == aor[2] && aor[1] == aor[0] {
+            return Double(aor.reduce(0, +))
+        } else if aor[2] == aor[1] && aor[0] == aor[1] && aor[4] == aor[3] {
+            return Double(aor.reduce(0, +))
+        } else {
+            return 0
+        }
+    }
+    
+    func calculatePossiblePointValueToSaveAsFourOfKind() -> Double {
+        let aor = makeSortedArrayOfDicesResults()
+        
+        if aor[4] == aor[3] && aor[4] == aor[2] && aor[4] == aor[1] {
+            return Double(aor[4] + aor[3] + aor[2] + aor[1])
+        } else if aor[0] == aor[1] && aor[0] == aor[2] && aor[0] == aor[3] {
+            return Double(aor[0] + aor[1] + aor[2] + aor[3])
+        } else {
+            return 0
+        }
+    }
+    
+    func calculatePossiblePointValueToSaveAsFiveOfKind() -> Double {
+        let aor = makeSortedArrayOfDicesResults()
+        
+        if aor[4] == aor[3] && aor[4] == aor[2] && aor[4] == aor[1] && aor[4] == aor[0] {
+            return 50
+        } else {
+            return 0
+        }
+    }
+    
+    func calculatePossiblePointValueToSaveAsChanse() -> Double  {
+        let aor = makeSortedArrayOfDicesResults()
+        return Double(aor.reduce(0, +))
+    }
+    
+    func saveAs(_ combinations: Combinations, for playerNumber: Int) {
+        switch combinations {
+        case .ones:
+            self.playersScores[playerNumber - 1].scores[.ones] = calculatePossiblePointValueToSaveAsOnes()
+        case .twos:
+            self.playersScores[playerNumber - 1].scores[.twos] = calculatePossiblePointValueToSaveAsTwos()
+        case .threes:
+            self.playersScores[playerNumber - 1].scores[.threes] = calculatePossiblePointValueToSaveAsThrees()
+        case .fours:
+            self.playersScores[playerNumber - 1].scores[.fours] = calculatePossiblePointValueToSaveAsFours()
+        case .fives:
+            self.playersScores[playerNumber - 1].scores[.fives] = calculatePossiblePointValueToSaveAsFives()
+        case .sixes:
+            self.playersScores[playerNumber - 1].scores[.sixes] = calculatePossiblePointValueToSaveAsSixes()
+        case .pair:
+            self.playersScores[playerNumber - 1].scores[.pair] = calculatePossiblePointValueToSaveAsPair()
+        case .twoPairs:
+            self.playersScores[playerNumber - 1].scores[.twoPairs] = calculatePossiblePointValueToSaveAsTwoPairs()
+        case .threeOfKind:
+            self.playersScores[playerNumber - 1].scores[.threeOfKind] = calculatePossiblePointValueToSaveAsThreeOfKind()
+        case .smallStraight:
+            self.playersScores[playerNumber - 1].scores[.smallStraight] = calculatePossiblePointValueToSaveAsSmallStraight()
+        case .bigStraight:
+            self.playersScores[playerNumber - 1].scores[.bigStraight] = calculatePossiblePointValueToSaveAsBigStraight()
+        case .full:
+            self.playersScores[playerNumber - 1].scores[.full] = calculatePossiblePointValueToSaveAsFull()
+        case .fourOfKind:
+            self.playersScores[playerNumber - 1].scores[.fourOfKind] = calculatePossiblePointValueToSaveAsFourOfKind()
+        case .fiveOfKind:
+            self.playersScores[playerNumber - 1].scores[.fiveOfKind] = calculatePossiblePointValueToSaveAsFiveOfKind()
+        case .chanse:
+            self.playersScores[playerNumber - 1].scores[.chanse] = calculatePossiblePointValueToSaveAsChanse()
+        }
+    }
+
     func checkIfTheGameIsOver(playerScore: PlayerScore) -> Bool {
         if playerScore.scores[.ones] != 0.01 &&
             playerScore.scores[.twos] != 0.01 &&
