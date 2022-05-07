@@ -18,7 +18,7 @@ struct SaveAsView: View {
         NavigationView {
             ZStack{
                 List {
-                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.ones] == 0.01 {
+                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.ones]! == nil {
                         HStack {
                             Button("Ones") {
                                 vm.gameManager.saveAs(.ones, for: currentPlayer)
@@ -26,11 +26,11 @@ struct SaveAsView: View {
                                 dismiss()
                             }
                             Spacer()
-                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsOnes().asStringWith0decimalPlaces())")
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsOnes())")
                                 .foregroundColor(Color.secondary)
                         }
                     }
-                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.twos] == 0.01 {
+                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.twos]! == nil {
                         HStack {
                             Button("Twos") {
                                 vm.gameManager.saveAs(.twos, for: currentPlayer)
@@ -38,11 +38,11 @@ struct SaveAsView: View {
                                 dismiss()
                             }
                             Spacer()
-                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsTwos().asStringWith0decimalPlaces())")
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsTwos())")
                                 .foregroundColor(Color.secondary)
                         }
                     }
-                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.threes] == 0.01 {
+                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.threes]! == nil {
                         HStack {
                             Button("Threes") {
                                 vm.gameManager.saveAs(.threes, for: currentPlayer)
@@ -50,11 +50,11 @@ struct SaveAsView: View {
                                 dismiss()
                             }
                             Spacer()
-                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsThrees().asStringWith0decimalPlaces())")
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsThrees())")
                                 .foregroundColor(Color.secondary)
                         }
                     }
-                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.fours] == 0.01 {
+                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.fours]! == nil {
                         HStack {
                             Button("Fours") {
                                 vm.gameManager.saveAs(.fours, for: currentPlayer)
@@ -62,11 +62,11 @@ struct SaveAsView: View {
                                 dismiss()
                             }
                             Spacer()
-                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFours().asStringWith0decimalPlaces())")
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFours())")
                                 .foregroundColor(Color.secondary)
                         }
                     }
-                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.fives] == 0.01 {
+                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.fives]! == nil {
                         HStack {
                             Button("Fives") {
                                 vm.gameManager.saveAs(.fives, for: currentPlayer)
@@ -74,11 +74,11 @@ struct SaveAsView: View {
                                 dismiss()
                             }
                             Spacer()
-                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFives().asStringWith0decimalPlaces())")
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFives())")
                                 .foregroundColor(Color.secondary)
                         }
                     }
-                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.sixes] == 0.01 {
+                    if vm.gameManager.playersScores[currentPlayer - 1].scores[.sixes]! == nil {
                         HStack {
                             Button("Sixes") {
                                 vm.gameManager.saveAs(.sixes, for: currentPlayer)
@@ -86,14 +86,14 @@ struct SaveAsView: View {
                                 dismiss()
                             }
                             Spacer()
-                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsSixes().asStringWith0decimalPlaces())")
+                            Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsSixes())")
                                 .foregroundColor(Color.secondary)
                         }
                     }
                     
                     
                     Section() {
-                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.pair] == 0.01 {
+                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.pair]! == nil {
                             HStack {
                                 Button("Pair") {
                                     vm.gameManager.saveAs(.pair, for: currentPlayer)
@@ -101,11 +101,11 @@ struct SaveAsView: View {
                                     dismiss()
                                 }
                                 Spacer()
-                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsPair().asStringWith0decimalPlaces())")
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsPair())")
                                     .foregroundColor(Color.secondary)
                             }
                         }
-                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.twoPairs] == 0.01 {
+                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.twoPairs]! == nil {
                             HStack {
                                 Button("Two Pairs") {
                                     vm.gameManager.saveAs(.twoPairs, for: currentPlayer)
@@ -113,11 +113,11 @@ struct SaveAsView: View {
                                     dismiss()
                                 }
                                 Spacer()
-                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsTwoPairs().asStringWith0decimalPlaces())")
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsTwoPairs())")
                                     .foregroundColor(Color.secondary)
                             }
                         }
-                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.threeOfKind] == 0.01 {
+                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.threeOfKind]! == nil {
                             HStack {
                                 Button("Three of a kind") {
                                     vm.gameManager.saveAs(.threeOfKind, for: currentPlayer)
@@ -125,11 +125,11 @@ struct SaveAsView: View {
                                     dismiss()
                                 }
                                 Spacer()
-                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsThreeOfKind().asStringWith0decimalPlaces())")
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsThreeOfKind())")
                                     .foregroundColor(Color.secondary)
                             }
                         }
-                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.smallStraight] == 0.01 {
+                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.smallStraight]! == nil {
                             HStack {
                                 Button("Small Straight") {
                                     vm.gameManager.saveAs(.smallStraight, for: currentPlayer)
@@ -137,11 +137,11 @@ struct SaveAsView: View {
                                     dismiss()
                                 }
                                 Spacer()
-                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsSmallStraight().asStringWith0decimalPlaces())")
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsSmallStraight())")
                                     .foregroundColor(Color.secondary)
                             }
                         }
-                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.bigStraight] == 0.01 {
+                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.bigStraight]! == nil {
                             HStack {
                                 Button("Big Straight") {
                                     vm.gameManager.saveAs(.bigStraight, for: currentPlayer)
@@ -149,11 +149,11 @@ struct SaveAsView: View {
                                     dismiss()
                                 }
                                 Spacer()
-                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsBigStraight().asStringWith0decimalPlaces())")
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsBigStraight())")
                                     .foregroundColor(Color.secondary)
                             }
                         }
-                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.full] == 0.01 {
+                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.full]! == nil {
                             HStack {
                                 Button("Full") {
                                     vm.gameManager.saveAs(.full, for: currentPlayer)
@@ -161,11 +161,11 @@ struct SaveAsView: View {
                                     dismiss()
                                 }
                                 Spacer()
-                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFull().asStringWith0decimalPlaces())")
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFull())")
                                     .foregroundColor(Color.secondary)
                             }
                         }
-                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.fourOfKind] == 0.01 {
+                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.fourOfKind]! == nil {
                             HStack {
                                 Button("Four of a kind") {
                                     vm.gameManager.saveAs(.fourOfKind, for: currentPlayer)
@@ -173,11 +173,11 @@ struct SaveAsView: View {
                                     dismiss()
                                 }
                                 Spacer()
-                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFourOfKind().asStringWith0decimalPlaces())")
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFourOfKind())")
                                     .foregroundColor(Color.secondary)
                             }
                         }
-                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.fiveOfKind] == 0.01 {
+                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.fiveOfKind]! == nil {
                             HStack {
                                 Button("Five of a kind") {
                                     vm.gameManager.saveAs(.fiveOfKind, for: currentPlayer)
@@ -185,13 +185,13 @@ struct SaveAsView: View {
                                     dismiss()
                                 }
                                 Spacer()
-                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFiveOfKind().asStringWith0decimalPlaces())")
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsFiveOfKind())")
                                     .foregroundColor(Color.secondary)
                             }
                         }
                     }
                     Section {
-                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.chanse] == 0.01 {
+                        if vm.gameManager.playersScores[currentPlayer - 1].scores[.chanse]! == nil {
                             HStack {
                                 Button("Chanse") {
                                     vm.gameManager.saveAs(.chanse, for: currentPlayer)
@@ -199,7 +199,7 @@ struct SaveAsView: View {
                                     dismiss()
                                 }
                                 Spacer()
-                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsChanse().asStringWith0decimalPlaces())")
+                                Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsChanse())")
                                     .foregroundColor(Color.secondary)
                             }
                         }

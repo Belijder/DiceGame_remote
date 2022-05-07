@@ -28,114 +28,127 @@ struct PlayerScoreboardCell: View {
                     .padding(4)
                     .border(K.Colors.darkViolet, width: 0.5)
                 
-                if scores[.ones] != 0.01 {
-                    Text("\(Int(scores[.ones]!))")
+                if let score = scores[.ones]! {
+                    Text("\(score)")
                         .scoreboardScoreStyle()
                     
                 } else {
                     Text("")
                         .scoreboardScoreStyle()
                 }
-                if scores[.twos] != 0.01 {
-                    Text("\(Int(scores[.twos]!))")
+                if let score = scores[.twos]! {
+                    Text("\(score)")
                         .scoreboardScoreStyle()
+                    
                 } else {
                     Text("")
                         .scoreboardScoreStyle()
                 }
-                if scores[.threes] != 0.01 {
-                    Text("\(Int(scores[.threes]!))")
+                if let score = scores[.threes]! {
+                    Text("\(score)")
                         .scoreboardScoreStyle()
+                    
                 } else {
                     Text("")
                         .scoreboardScoreStyle()
                 }
-                if scores[.fours] != 0.01 {
-                    Text("\(Int(scores[.fours]!))")
+                if let score = scores[.fours]! {
+                    Text("\(score)")
                         .scoreboardScoreStyle()
+                    
                 } else {
                     Text("")
                         .scoreboardScoreStyle()
                 }
-                if scores[.fives] != 0.01 {
-                    Text("\(Int(scores[.fives]!))")
+                if let score = scores[.fives]! {
+                    Text("\(score)")
                         .scoreboardScoreStyle()
+                    
                 } else {
                     Text("")
                         .scoreboardScoreStyle()
                 }
-                if scores[.sixes] != 0.01 {
-                    Text("\(Int(scores[.sixes]!))")
+                if let score = scores[.sixes]! {
+                    Text("\(score)")
                         .scoreboardScoreStyle()
+                    
                 } else {
                     Text("")
                         .scoreboardScoreStyle()
                 }
             }
             Group {
-            if scores[.pair] != 0.01 {
-                Text("\(Int(scores[.pair]!))")
-                    .scoreboardScoreStyle()
-            } else {
-                Text("")
-                    .scoreboardScoreStyle()
-            }
-            if scores[.twoPairs] != 0.01 {
-                Text("\(Int(scores[.twoPairs]!))")
-                    .scoreboardScoreStyle()
-            } else {
-                Text("")
-                    .scoreboardScoreStyle()
-            }
-            if scores[.threeOfKind] != 0.01 {
-                Text("\(Int(scores[.threeOfKind]!))")
-                    .scoreboardScoreStyle()
-            } else {
-                Text("")
-                    .scoreboardScoreStyle()
-            }
-            if scores[.smallStraight] != 0.01 {
-                Text("\(Int(scores[.smallStraight]!))")
-                    .scoreboardScoreStyle()
-            } else {
-                Text("")
-                    .scoreboardScoreStyle()
-            }
-            if scores[.bigStraight] != 0.01 {
-                Text("\(Int(scores[.bigStraight]!))")
-                    .scoreboardScoreStyle()
-            } else {
-                Text("")
-                    .scoreboardScoreStyle()
-            }
-            if scores[.full] != 0.01 {
-                Text("\(Int(scores[.full]!))")
-                    .scoreboardScoreStyle()
-            } else {
-                Text("")
-                    .scoreboardScoreStyle()
-            }
-            if scores[.fourOfKind] != 0.01 {
-                Text("\(Int(scores[.fourOfKind]!))")
-                    .scoreboardScoreStyle()
-            } else {
-                Text("")
-                    .scoreboardScoreStyle()
-            }
-            if scores[.fiveOfKind] != 0.01 {
-                Text("\(Int(scores[.fiveOfKind]!))")
-                    .scoreboardScoreStyle()
-            } else {
-                Text("")
-                    .scoreboardScoreStyle()
-            }
-            if scores[.chanse] != 0.01 {
-                Text("\(Int(scores[.chanse]!))")
-                    .scoreboardScoreStyle()
-            } else {
-                Text("")
-                    .scoreboardScoreStyle()
-            }
+                if let score = scores[.pair]! {
+                    Text("\(score)")
+                        .scoreboardScoreStyle()
+                    
+                } else {
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
+                if let score = scores[.twoPairs]! {
+                    Text("\(score)")
+                        .scoreboardScoreStyle()
+                    
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
+                if let score = scores[.threeOfKind]! {
+                    Text("\(score)")
+                        .scoreboardScoreStyle()
+                    
+                } else {
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
+                if let score = scores[.smallStraight]! {
+                    Text("\(score)")
+                        .scoreboardScoreStyle()
+                    
+                } else {
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
+                if let score = scores[.bigStraight]! {
+                    Text("\(score)")
+                        .scoreboardScoreStyle()
+                    
+                } else {
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
+                if let score = scores[.full]! {
+                    Text("\(score)")
+                        .scoreboardScoreStyle()
+                    
+                } else {
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
+                if let score = scores[.fourOfKind]! {
+                    Text("\(score)")
+                        .scoreboardScoreStyle()
+                    
+                } else {
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
+                if let score = scores[.fiveOfKind]! {
+                    Text("\(score)")
+                        .scoreboardScoreStyle()
+                    
+                } else {
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
+                if let score = scores[.chanse]! {
+                    Text("\(score)")
+                        .scoreboardScoreStyle()
+                    
+                } else {
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
                 Text("\(vm.gameManager.calculateTotalResult(forPlayer: playerNumber))")
                     .scoreboardScoreStyle()
             }
