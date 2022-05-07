@@ -12,6 +12,10 @@ class GameViewModel: ObservableObject {
     
     @ObservedObject var gameManager: GameManager
     
+    func addPlayer() {
+        gameManager.addPlayer()
+        gameManager.isActivPlayerAt[0] = true
+    }
     
     init(gameManager: GameManager) {
         self.gameManager = gameManager

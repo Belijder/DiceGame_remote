@@ -14,14 +14,13 @@ struct DiceGameApp: App {
     
     var body: some Scene {
         WindowGroup {
-            GameView(gameManager: gameManager)
-            
+            StartGameView(gameManager: gameManager)
 //            Group {
 //                if gameManager.gameIsInProgress {
 //                    GameView()
 //
 //                } else {
-//                    StartGameView()
+//                    StartGameView(gameManager: gameManager)
 //                }
 //            }
         }

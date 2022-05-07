@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameView: View {
     
-    @StateObject var vm: GameViewModel
+    @ObservedObject var vm: GameViewModel
     
 
     @State var showSaveAsView = false
@@ -136,7 +136,7 @@ struct GameView: View {
                         } label: {
                             Image(systemName: "tablecells")
                                 .foregroundColor(K.Colors.yellow)
-                                .frame(width: 30, height: 30)
+                                .frame(width: 40, height: 40)
                                 .background(K.Colors.darkViolet)
                                 .clipShape(Circle())
                                 .padding()
@@ -153,15 +153,15 @@ struct GameView: View {
 //        .onDisappear(perform: dismissView)
     }
     
-    init(gameManager: GameManager) {
-       _vm = StateObject(wrappedValue: GameViewModel(gameManager: gameManager))
+    init(vm: GameViewModel) {
+        self.vm = vm
     }
 }
 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(gameManager: GameManager())
+        GameView(vm: GameViewModel(gameManager: GameManager()))
     }
 }
 

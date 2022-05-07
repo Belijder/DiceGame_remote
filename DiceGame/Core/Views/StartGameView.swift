@@ -9,12 +9,12 @@ import SwiftUI
 
 struct StartGameView: View {
     
-    
     @ObservedObject var vm: GameViewModel
+    
     
     @State var showGameView = false
     
-    var disableStartButton: Bool {
+    private var disableStartButton: Bool {
         
         var returnValue = true
         
@@ -62,6 +62,8 @@ struct StartGameView: View {
                                 .onTapGesture {
                                     vm.gameManager.addPlayer()
                                     vm.gameManager.isActivPlayerAt[0] = true
+                                    print(vm.gameManager.isActivPlayerAt)
+                                    print(vm.gameManager.playersScores)
                                 }
                         }
 
@@ -72,6 +74,8 @@ struct StartGameView: View {
                                 .onTapGesture {
                                     vm.gameManager.addPlayer()
                                     vm.gameManager.isActivPlayerAt[1] = true
+                                    print(vm.gameManager.isActivPlayerAt)
+                                    print(vm.gameManager.playersScores)
                                 }
                         }
 
@@ -116,23 +120,26 @@ struct StartGameView: View {
                         .padding()
                         .opacity(disableStartButton ? 0.5 : 1.0)
                 }
-//                .fullScreenCover(isPresented: $showGameView) {
-//                    GameView()
-//                }
+                .fullScreenCover(isPresented: $showGameView) {
+                    GameView(vm: vm)
+                }
                 .disabled(disableStartButton)
-
-                
+                .onAppear {
+                    if vm.gameManager.gameIsInProgress {
+                        self.showGameView = true
+                    }
+                }
             }
         }
     }
     
-    init(vm: GameViewModel) {
-        self.vm = vm
+    init(gameManager: GameManager) {
+        _vm = ObservedObject(wrappedValue: GameViewModel(gameManager: gameManager))
     }
 }
 
 struct StartGameView_Previews: PreviewProvider {
     static var previews: some View {
-        StartGameView(vm: GameViewModel(gameManager: GameManager()))
+        StartGameView(gameManager: GameManager())
     }
 }
