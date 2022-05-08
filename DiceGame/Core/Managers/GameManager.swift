@@ -19,7 +19,7 @@ class GameManager: ObservableObject {
     
     @Published var isActivPlayerAt = [false, false, false, false]
     
-    @Published var ranking: [(String, Int)] = []
+    @Published var ranking: [(String, Int)] = [("Kuba", 999)]
     
     enum Combinations {
         case ones, twos, threes, fours, fives, sixes, pair, twoPairs, threeOfKind, smallStraight, bigStraight, full, fourOfKind, fiveOfKind, chanse
@@ -27,7 +27,6 @@ class GameManager: ObservableObject {
     
     
     func roll() {
-        
         if currentNumberOfdiceRolls > 0 {
             guard dices.contains(where: { $0.isblocked == false }) else { return }
         }
@@ -63,13 +62,14 @@ class GameManager: ObservableObject {
     
     func calculateTotalResult(forPlayer playerNumber: Int) -> Int {
         let result = playersScores[playerNumber - 1].scores.map() { $0.value ?? 0 }.reduce(0, +)
-        let resultAsInt = Int(result)
-        return resultAsInt
+        let bonus = playersScores[playerNumber - 1].bonus ?? 0
+        return result + bonus
     }
     
     func addPlayer() {
         let newPlayer = PlayerScore(playerNumber: playersScores.count + 1)
         playersScores.append(newPlayer)
+        print(newPlayer.id)
     }
     
     func removePlayer(at index: Int) {
@@ -302,6 +302,24 @@ class GameManager: ObservableObject {
             self.playersScores[playerNumber - 1].scores[.fiveOfKind] = calculatePossiblePointValueToSaveAsFiveOfKind()
         case .chanse:
             self.playersScores[playerNumber - 1].scores[.chanse] = calculatePossiblePointValueToSaveAsChanse()
+        }
+        calculateBonus(for: playerNumber)
+    }
+    
+    func calculateBonus(for playerNumber: Int) {
+        let scores = [
+            playersScores[playerNumber - 1].scores[.ones],
+            playersScores[playerNumber - 1].scores[.twos],
+            playersScores[playerNumber - 1].scores[.threes],
+            playersScores[playerNumber - 1].scores[.fours],
+            playersScores[playerNumber - 1].scores[.fives],
+            playersScores[playerNumber - 1].scores[.sixes],
+        ]
+        let sum = scores.map { $0! ?? 0 }.reduce(0, +)
+        if sum >= 63 {
+            playersScores[playerNumber - 1].bonus = 25
+        } else {
+            playersScores[playerNumber - 1].pointsRemainingToGetBonus = 63 - sum
         }
     }
 

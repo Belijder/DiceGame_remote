@@ -23,6 +23,7 @@ struct TitlesScoreboardCell: View {
                     Text("Fours").scoreboardTitleStyle()
                     Text("Fives").scoreboardTitleStyle()
                     Text("Sixes").scoreboardTitleStyle()
+                    Text("Bonus").scoreboardScoreStyle()
                 }
                 Group {
                     Text("Pair").scoreboardTitleStyle()

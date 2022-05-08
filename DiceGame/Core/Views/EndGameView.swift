@@ -62,16 +62,7 @@ struct EndGameView: View {
                 Spacer()
                 
                 Button {
-//                    let rootViewController = UIApplication.shared.connectedScenes
-//                            .filter {$0.activationState == .foregroundActive }
-//                            .map {$0 as? UIWindowScene }
-//                            .compactMap { $0 }
-//                            .first?.windows
-//                            .filter({ $0.isKeyWindow }).first?.rootViewController
-//
-//                        rootViewController?.dismiss(animated: true) {
-//                            vm.gameManager.startNewGame()
-//                        }
+                    // prepere to new game
                 } label: {
                     Text("Play Again")
                         .font(.title)

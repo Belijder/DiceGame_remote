@@ -24,6 +24,7 @@ struct SaveAsView: View {
                                 vm.gameManager.saveAs(.ones, for: currentPlayer)
                                 vm.gameManager.changePlayer()
                                 dismiss()
+                                vm.gameManager.calculateBonus(for: currentPlayer)
                             }
                             Spacer()
                             Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsOnes())")

@@ -15,15 +15,12 @@ struct StartGameView: View {
     @State var showGameView = false
     
     private var disableStartButton: Bool {
-        
         var returnValue = true
-        
         if vm.gameManager.playersScores.count == 0 {
             returnValue = true
         } else {
             returnValue = false
         }
-    
         for number in 0..<vm.gameManager.playersScores.count {
             if vm.gameManager.playersScores[number].playerName.trimmingCharacters(in: .whitespaces) == "" {
                 returnValue = true
@@ -31,104 +28,27 @@ struct StartGameView: View {
                 returnValue = false
             }
         }
-        
         return returnValue
     }
 
     var body: some View {
         ZStack {
-            K.Colors.lightViolet
-                .ignoresSafeArea(.all)
+            backgroud
             VStack {
-                Text("Dice Game")
-                    .font(.largeTitle)
-                    .fontWeight(.black)
-                    .foregroundColor(K.Colors.darkViolet)
-                    .padding(.top)
-                Text("Start a new game")
-                    .font(.title3)
-                    .fontWeight(.light)
-                    .foregroundColor(K.Colors.darkViolet)
+                titleAndSubtitle
                 Spacer()
-                
-                
-                
-                VStack {
-                    HStack {
-                        if vm.gameManager.isActivPlayerAt[0] {
-                            PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 1)
-                        } else {
-                            AddPlayerCell()
-                                .onTapGesture {
-                                    vm.gameManager.addPlayer()
-                                    vm.gameManager.isActivPlayerAt[0] = true
-                                    print(vm.gameManager.isActivPlayerAt)
-                                    print(vm.gameManager.playersScores)
-                                }
-                        }
-
-                        if vm.gameManager.isActivPlayerAt[1] {
-                            PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 2)
-                        } else {
-                            AddPlayerCell()
-                                .onTapGesture {
-                                    vm.gameManager.addPlayer()
-                                    vm.gameManager.isActivPlayerAt[1] = true
-                                    print(vm.gameManager.isActivPlayerAt)
-                                    print(vm.gameManager.playersScores)
-                                }
-                        }
-
-                    }
-
-                    HStack {
-                        if vm.gameManager.isActivPlayerAt[2] {
-                            PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 3)
-                        } else {
-                            AddPlayerCell()
-                                .onTapGesture {
-                                    vm.gameManager.addPlayer()
-                                    vm.gameManager.isActivPlayerAt[2] = true
-                                }
-                        }
-
-                        if vm.gameManager.isActivPlayerAt[3] {
-                            PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 4)
-                        } else {
-                            AddPlayerCell()
-                                .onTapGesture {
-                                    vm.gameManager.addPlayer()
-                                    vm.gameManager.isActivPlayerAt[3] = true
-                                }
-                        }
-
-                    }
-                }
-                
-                
+                playerSelectionsGrid
                 Spacer()
-                
-                Button {
-                    showGameView = true
-                } label: {
-                    Text("Start Game")
-                        .font(.title)
-                        .foregroundColor(K.Colors.darkViolet)
-                        .frame(width: 160, height: 50)
-                        .background(K.Colors.yellow)
-                        .clipShape(Capsule())
-                        .padding()
-                        .opacity(disableStartButton ? 0.5 : 1.0)
-                }
+                startGameButton
                 .fullScreenCover(isPresented: $showGameView) {
                     GameView(vm: vm)
                 }
                 .disabled(disableStartButton)
-                .onAppear {
-                    if vm.gameManager.gameIsInProgress {
-                        self.showGameView = true
-                    }
-                }
+            }
+        }
+        .onAppear {
+            if vm.gameManager.gameIsInProgress {
+                self.showGameView = true
             }
         }
     }
@@ -141,5 +61,117 @@ struct StartGameView: View {
 struct StartGameView_Previews: PreviewProvider {
     static var previews: some View {
         StartGameView(gameManager: GameManager())
+    }
+}
+
+extension StartGameView {
+    
+    private var backgroud: some View {
+        K.Colors.lightViolet
+            .ignoresSafeArea(.all)
+    }
+    
+    private var titleAndSubtitle: some View {
+        VStack {
+            Text("Dice Game")
+                .font(.largeTitle)
+                .fontWeight(.black)
+                .foregroundColor(K.Colors.darkViolet)
+                .padding(.top)
+            Text("Start a new game")
+                .font(.title3)
+                .fontWeight(.light)
+                .foregroundColor(K.Colors.darkViolet)
+        }
+    }
+    
+    private var startGameButton: some View {
+        Button {
+            showGameView = true
+        } label: {
+            Text("Start Game")
+                .font(.title)
+                .foregroundColor(K.Colors.darkViolet)
+                .frame(width: 160, height: 50)
+                .background(K.Colors.yellow)
+                .clipShape(Capsule())
+                .padding()
+                .opacity(disableStartButton ? 0.5 : 1.0)
+        }
+    }
+    
+    private var playerSelectionsGrid: some View {
+//        This way doesn't work for now
+        /*
+//        let columns = [
+//            GridItem(.fixed(UIScreen.main.bounds.width / 2), spacing: 10),
+//            GridItem(.fixed(UIScreen.main.bounds.width / 2), spacing: 10)
+//        ]
+//        LazyVGrid(columns: columns) {
+//            ForEach(0..<4) { inx in
+//                if vm.gameManager.isActivPlayerAt[inx] {
+//                    PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: inx + 1)
+//                } else {
+//                    AddPlayerCell()
+//                        .onTapGesture {
+//                            vm.gameManager.addPlayer()
+//                            vm.gameManager.isActivPlayerAt[inx] = true
+//                        }
+//                }
+//            }
+//        }
+         */
+        
+          return VStack {
+            HStack {
+                if vm.gameManager.isActivPlayerAt[0] {
+                    PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 1)
+                } else {
+                    AddPlayerCell()
+                        .onTapGesture {
+                            vm.gameManager.addPlayer()
+                            vm.gameManager.isActivPlayerAt[0] = true
+                            print(vm.gameManager.isActivPlayerAt[0])
+                        }
+                }
+
+                if vm.gameManager.isActivPlayerAt[1] {
+                    PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 2)
+                } else {
+                    AddPlayerCell()
+                        .onTapGesture {
+                            vm.gameManager.addPlayer()
+                            vm.gameManager.isActivPlayerAt[1] = true
+                            print(vm.gameManager.isActivPlayerAt[1])
+                        }
+                }
+
+            }
+
+            HStack {
+                if vm.gameManager.isActivPlayerAt[2] {
+                    PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 3)
+                } else {
+                    AddPlayerCell()
+                        .onTapGesture {
+                            vm.gameManager.addPlayer()
+                            vm.gameManager.isActivPlayerAt[2] = true
+                            print(vm.gameManager.isActivPlayerAt[2])
+                        }
+                }
+
+                if vm.gameManager.isActivPlayerAt[3] {
+                    PlayersSelectionsCell(vm: vm, player: vm.gameManager.playersScores[vm.gameManager.playersScores.count - 1], positionInGrid: 4)
+                } else {
+                    AddPlayerCell()
+                        .onTapGesture {
+                            vm.gameManager.addPlayer()
+                            vm.gameManager.isActivPlayerAt[3] = true
+                            print(vm.gameManager.isActivPlayerAt[3])
+                        }
+                }
+
+            }
+        }
     }
 }

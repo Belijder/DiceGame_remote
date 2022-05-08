@@ -16,7 +16,7 @@ struct PlayersSelectionsCell: View {
     
     var body: some View {
         
-        
+         
         VStack {
             if player.playerName == "" {
                 Text("Player")
@@ -45,9 +45,12 @@ struct PlayersSelectionsCell: View {
                 .frame(width: 80, height: 80, alignment: .center)
                 
                 Button {
+                    print(player.id)
                     if let index = vm.gameManager.playersScores.firstIndex(where: { $0.id == player.id }) {
                         vm.gameManager.removePlayer(at: index)
                         vm.gameManager.isActivPlayerAt[positionInGrid - 1] = false
+                        print(vm.gameManager.isActivPlayerAt)
+                        print(vm.gameManager.playersScores)
                     }
                     
                 } label: {

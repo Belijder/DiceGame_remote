@@ -31,11 +31,11 @@ struct PlayerScoreboardCell: View {
                 if let score = scores[.ones]! {
                     Text("\(score)")
                         .scoreboardScoreStyle()
-                    
                 } else {
                     Text("")
                         .scoreboardScoreStyle()
                 }
+                
                 if let score = scores[.twos]! {
                     Text("\(score)")
                         .scoreboardScoreStyle()
@@ -76,6 +76,15 @@ struct PlayerScoreboardCell: View {
                     Text("")
                         .scoreboardScoreStyle()
                 }
+                if let bonus = vm.gameManager.playersScores[playerNumber - 1].bonus {
+                    Text("\(bonus)")
+                        .scoreboardScoreStyle()
+                    
+                } else {
+                    Text("")
+                        .scoreboardScoreStyle()
+                }
+                
             }
             Group {
                 if let score = scores[.pair]! {
@@ -89,7 +98,7 @@ struct PlayerScoreboardCell: View {
                 if let score = scores[.twoPairs]! {
                     Text("\(score)")
                         .scoreboardScoreStyle()
-                    
+                } else {
                     Text("")
                         .scoreboardScoreStyle()
                 }
