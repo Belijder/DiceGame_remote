@@ -62,7 +62,7 @@ struct EndGameView: View {
                 Spacer()
                 
                 Button {
-                    // prepere to new game
+                    vm.gameManager.prepareNewGame()
                 } label: {
                     Text("Play Again")
                         .font(.title)
@@ -72,10 +72,6 @@ struct EndGameView: View {
                         .clipShape(Capsule())
                         .padding()
                 }
-//                .fullScreenCover(isPresented: $startNewGame) {
-//                    StartGameView()
-//                }
-            
             }
             
                 

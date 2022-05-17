@@ -25,12 +25,31 @@ class GameManager: ObservableObject {
         case ones, twos, threes, fours, fives, sixes, pair, twoPairs, threeOfKind, smallStraight, bigStraight, full, fourOfKind, fiveOfKind, chanse
     }
     
+    init() {
+        prepareNewGame()
+    }
+    
+    func prepareNewGame() {
+        
+        if dices.isEmpty {
+            for _ in 1...5 {
+                let number = Int.random(in: 1...6)
+                let dice = Dice(value: number)
+                dices.append(dice)
+            }
+        }
+        currentNumberOfdiceRolls = 0
+        currentPlayer = 1
+        gameIsEnded = false
+        gameIsInProgress = false
+        isActivPlayerAt = [false, false, false, false]
+        playersScores = []
+    }
     
     func roll() {
         if currentNumberOfdiceRolls > 0 {
             guard dices.contains(where: { $0.isblocked == false }) else { return }
         }
-        
         for number in 0...4 {
             if dices[number].isblocked == false {
                 dices[number].rollDice()
@@ -38,7 +57,6 @@ class GameManager: ObservableObject {
         }
         for number in 0...4 {
             dices[number].isblocked = true
-        
         }
         currentNumberOfdiceRolls += 1
     }
@@ -86,16 +104,7 @@ class GameManager: ObservableObject {
         self.ranking = sortedRanking
     }
     
-    func startNewGame() {
-        gameIsEnded = false
-        playersScores = []
-        isActivPlayerAt = [false, false, false, false]
-        currentPlayer = 1
-        currentNumberOfdiceRolls = 0
-    }
-    
-    
-    
+
     func makeSortedArrayOfDicesResults() -> [Int] {
         var aor: [Int] = []
         for dice in dices {
@@ -324,35 +333,27 @@ class GameManager: ObservableObject {
     }
 
     func checkIfTheGameIsOver(playerScore: PlayerScore) -> Bool {
-        if playerScore.scores[.ones]! != nil &&
-            playerScore.scores[.twos]! != nil &&
-            playerScore.scores[.threes]! != nil &&
-            playerScore.scores[.fours]! != nil &&
-            playerScore.scores[.fives]! != nil &&
-            playerScore.scores[.sixes]! != nil &&
-            playerScore.scores[.pair]! != nil &&
-            playerScore.scores[.twoPairs]! != nil &&
-            playerScore.scores[.threeOfKind]! != nil &&
-            playerScore.scores[.smallStraight]! != nil &&
-            playerScore.scores[.bigStraight]! != nil &&
-            playerScore.scores[.full]! != nil &&
-            playerScore.scores[.fourOfKind]! != nil &&
-            playerScore.scores[.fiveOfKind]! != nil &&
-            playerScore.scores[.chanse]! != nil
+        if playerScore.scores[.ones]! != nil
+//            &&
+//            playerScore.scores[.twos]! != nil &&
+//            playerScore.scores[.threes]! != nil &&
+//            playerScore.scores[.fours]! != nil &&
+//            playerScore.scores[.fives]! != nil &&
+//            playerScore.scores[.sixes]! != nil &&
+//            playerScore.scores[.pair]! != nil &&
+//            playerScore.scores[.twoPairs]! != nil &&
+//            playerScore.scores[.threeOfKind]! != nil &&
+//            playerScore.scores[.smallStraight]! != nil &&
+//            playerScore.scores[.bigStraight]! != nil &&
+//            playerScore.scores[.full]! != nil &&
+//            playerScore.scores[.fourOfKind]! != nil &&
+//            playerScore.scores[.fiveOfKind]! != nil &&
+//            playerScore.scores[.chanse]! != nil
         {
             self.createPlayerRanking()
             return true
         } else {
             return false
-        }
-    }
-
-    
-    init() {
-        for _ in 1...5 {
-            let number = Int.random(in: 1...6)
-            let dice = Dice(value: number)
-            dices.append(dice)
         }
     }
 }

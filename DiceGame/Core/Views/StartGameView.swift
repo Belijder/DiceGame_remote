@@ -11,9 +11,6 @@ struct StartGameView: View {
     
     @ObservedObject var vm: GameViewModel
     
-    
-    @State var showGameView = false
-    
     private var disableStartButton: Bool {
         var returnValue = true
         if vm.gameManager.playersScores.count == 0 {
@@ -40,15 +37,10 @@ struct StartGameView: View {
                 playerSelectionsGrid
                 Spacer()
                 startGameButton
-                .fullScreenCover(isPresented: $showGameView) {
+                    .fullScreenCover(isPresented: $vm.gameManager.gameIsInProgress) {
                     GameView(vm: vm)
                 }
                 .disabled(disableStartButton)
-            }
-        }
-        .onAppear {
-            if vm.gameManager.gameIsInProgress {
-                self.showGameView = true
             }
         }
     }
@@ -87,7 +79,7 @@ extension StartGameView {
     
     private var startGameButton: some View {
         Button {
-            showGameView = true
+            vm.gameManager.gameIsInProgress = true
         } label: {
             Text("Start Game")
                 .font(.title)
@@ -131,7 +123,6 @@ extension StartGameView {
                         .onTapGesture {
                             vm.gameManager.addPlayer()
                             vm.gameManager.isActivPlayerAt[0] = true
-                            print(vm.gameManager.isActivPlayerAt[0])
                         }
                 }
 
@@ -142,7 +133,6 @@ extension StartGameView {
                         .onTapGesture {
                             vm.gameManager.addPlayer()
                             vm.gameManager.isActivPlayerAt[1] = true
-                            print(vm.gameManager.isActivPlayerAt[1])
                         }
                 }
 
@@ -156,7 +146,6 @@ extension StartGameView {
                         .onTapGesture {
                             vm.gameManager.addPlayer()
                             vm.gameManager.isActivPlayerAt[2] = true
-                            print(vm.gameManager.isActivPlayerAt[2])
                         }
                 }
 
@@ -167,7 +156,6 @@ extension StartGameView {
                         .onTapGesture {
                             vm.gameManager.addPlayer()
                             vm.gameManager.isActivPlayerAt[3] = true
-                            print(vm.gameManager.isActivPlayerAt[3])
                         }
                 }
 

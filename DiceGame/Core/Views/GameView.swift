@@ -12,7 +12,6 @@ struct GameView: View {
     @ObservedObject var vm: GameViewModel
     @State var showSaveAsView = false
     @State var showScoreView = false
-    @State var showEndGamePopUp = false
     
     var body: some View {
         ZStack {
@@ -76,10 +75,12 @@ extension GameView {
                 .fontWeight(.light)
                 .foregroundColor(K.Colors.darkViolet)
                 .padding(.top, 20)
-            Text("\(vm.gameManager.playersScores[vm.gameManager.currentPlayer - 1].playerName)")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .foregroundColor(K.Colors.darkViolet)
+            if !vm.gameManager.playersScores.isEmpty {
+                Text("\(vm.gameManager.playersScores[vm.gameManager.currentPlayer - 1].playerName)")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(K.Colors.darkViolet)
+            }
         }
     }
     
@@ -238,7 +239,7 @@ extension GameView {
                 }
                 
                 Button {
-                    // prepere to new game
+                    vm.gameManager.prepareNewGame()
                 } label: {
                     Text("Play Again")
                         .font(.title2)
