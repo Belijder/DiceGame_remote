@@ -42,11 +42,12 @@ struct StartGameView: View {
                 }
                 .disabled(disableStartButton)
             }
-        }
+        }.onAppear(perform: vm.loadGameProgress)
     }
     
     init(gameManager: GameManager) {
         _vm = ObservedObject(wrappedValue: GameViewModel(gameManager: gameManager))
+        
     }
 }
 
@@ -82,7 +83,7 @@ extension StartGameView {
             vm.gameManager.gameIsInProgress = true
         } label: {
             Text("Start Game")
-                .font(.title)
+                .font(.headline)
                 .foregroundColor(K.Colors.darkViolet)
                 .frame(width: 160, height: 50)
                 .background(K.Colors.yellow)

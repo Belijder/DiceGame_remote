@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct Dice: Identifiable {
-    let id = UUID()
+struct Dice: Identifiable, Codable {
+    var id = UUID()
     var value: Int
     var isblocked = true
     

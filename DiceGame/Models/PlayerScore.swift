@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct PlayerScore: Identifiable, Hashable {
+struct PlayerScore: Identifiable, Codable, Hashable {
     
-    enum Combinations {
+    enum Combinations: Codable {
         case ones, twos, threes, fours, fives, sixes, pair, twoPairs, threeOfKind, smallStraight, bigStraight, full, fourOfKind, fiveOfKind, chanse
     }
     
-    let id = UUID()
+    var id = UUID()
     
     let playerNumber: Int
     
@@ -41,5 +41,4 @@ struct PlayerScore: Identifiable, Hashable {
     
     var bonus: Int? = nil
     var pointsRemainingToGetBonus = 63
-    
 }

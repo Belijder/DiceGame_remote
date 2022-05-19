@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct GameView: View {
     
@@ -87,9 +88,10 @@ extension GameView {
     private var rollButton: some View {
         Button {
             vm.gameManager.roll()
+            vm.saveGameProgress()
         } label: {
             Text("Roll")
-                .font(.title)
+                .font(.headline)
                 .foregroundColor(K.Colors.darkViolet)
                 .frame(width: UIScreen.main.bounds.width / 4, height: 60)
                 .background(K.Colors.yellow)
@@ -154,9 +156,10 @@ extension GameView {
     private var rollAgainButton: some View {
         Button {
             vm.gameManager.roll()
+            vm.saveGameProgress()
         } label: {
             Text("Roll Again")
-                .font(.title)
+                .font(.headline)
                 .foregroundColor(K.Colors.darkViolet)
                 .frame(width: UIScreen.main.bounds.width * 0.45, height: 50)
                 .background(K.Colors.yellow)
@@ -167,10 +170,11 @@ extension GameView {
     
     private var saveButton: some View {
         Button {
+            vm.saveGameProgress()
             showSaveAsView = true
         } label: {
             Text("Save")
-                .font(.title)
+                .font(.headline)
                 .foregroundColor(K.Colors.darkViolet)
                 .frame(width: UIScreen.main.bounds.width * 0.30, height: 50)
                 .background(K.Colors.yellow)

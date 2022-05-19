@@ -12,12 +12,12 @@ struct AddPlayerCell: View {
         VStack {
             Text("Add player")
                 .foregroundColor(K.Colors.darkViolet)
-                .font(.title)
-                .fontWeight(.light)
+                .font(.title2)
+                .fontWeight(.regular)
             VStack {
                 Image(systemName: "plus.circle.fill")
                     .resizable()
-                    .font(.largeTitle)
+                    .font(.title2)
                     .foregroundColor(K.Colors.yellow)
                     .background(K.Colors.darkViolet)
                     .clipShape(Circle())

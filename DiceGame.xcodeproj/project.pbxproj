@@ -26,6 +26,8 @@
 		2357AC60278CAEDB009288B5 /* StartGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357AC5F278CAEDB009288B5 /* StartGameView.swift */; };
 		2357AC62278CB4D0009288B5 /* PlayersSelectionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357AC61278CB4D0009288B5 /* PlayersSelectionsCell.swift */; };
 		2384FBD027941E1800D57851 /* AddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2384FBCF27941E1800D57851 /* AddPlayerCell.swift */; };
+		2389F7F7283550AF00C75C2B /* GameProgressContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2389F7F5283550AF00C75C2B /* GameProgressContainer.xcdatamodeld */; };
+		2389F7F92836A79900C75C2B /* ProgressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2389F7F82836A79900C75C2B /* ProgressModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		2357AC5F278CAEDB009288B5 /* StartGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameView.swift; sourceTree = "<group>"; };
 		2357AC61278CB4D0009288B5 /* PlayersSelectionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersSelectionsCell.swift; sourceTree = "<group>"; };
 		2384FBCF27941E1800D57851 /* AddPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerCell.swift; sourceTree = "<group>"; };
+		2389F7F6283550AF00C75C2B /* GameProgressContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GameProgressContainer.xcdatamodel; sourceTree = "<group>"; };
+		2389F7F82836A79900C75C2B /* ProgressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,7 @@
 				2384FBD127941E3300D57851 /* Extencions */,
 				234697E7276F36E600A15E1C /* Models */,
 				2384FBD227941E4500D57851 /* Core */,
+				2389F7F5283550AF00C75C2B /* GameProgressContainer.xcdatamodeld */,
 				234697DB276F322D00A15E1C /* Assets.xcassets */,
 				234697DD276F322D00A15E1C /* Preview Content */,
 			);
@@ -145,6 +150,7 @@
 				234697E5276F326500A15E1C /* Dice.swift */,
 				234697EE276F55E200A15E1C /* PlayerScore.swift */,
 				234697EA276F447200A15E1C /* Constants.swift */,
+				2389F7F82836A79900C75C2B /* ProgressModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -250,6 +256,7 @@
 				2357AC58278388E6009288B5 /* EndGameView.swift in Sources */,
 				2346675F2821283C00313F10 /* GameManager.swift in Sources */,
 				2346675A281D1E9700313F10 /* DiceView.swift in Sources */,
+				2389F7F7283550AF00C75C2B /* GameProgressContainer.xcdatamodeld in Sources */,
 				2357AC60278CAEDB009288B5 /* StartGameView.swift in Sources */,
 				234697EB276F447300A15E1C /* Constants.swift in Sources */,
 				234697EF276F55E200A15E1C /* PlayerScore.swift in Sources */,
@@ -262,6 +269,7 @@
 				2357AC5E278B4761009288B5 /* TitlesScoreboardCell.swift in Sources */,
 				234697D8276F322A00A15E1C /* DiceGameApp.swift in Sources */,
 				2384FBD027941E1800D57851 /* AddPlayerCell.swift in Sources */,
+				2389F7F92836A79900C75C2B /* ProgressModel.swift in Sources */,
 				234697E9276F36FF00A15E1C /* GameViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,6 +475,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2389F7F5283550AF00C75C2B /* GameProgressContainer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2389F7F6283550AF00C75C2B /* GameProgressContainer.xcdatamodel */,
+			);
+			currentVersion = 2389F7F6283550AF00C75C2B /* GameProgressContainer.xcdatamodel */;
+			path = GameProgressContainer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 234697CC276F322900A15E1C /* Project object */;
 }

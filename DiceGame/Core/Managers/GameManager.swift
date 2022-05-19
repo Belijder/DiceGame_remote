@@ -15,11 +15,9 @@ class GameManager: ObservableObject {
     @Published var currentPlayer = 1
     @Published var gameIsEnded = false
     @Published var gameIsInProgress = false
-    
-    
     @Published var isActivPlayerAt = [false, false, false, false]
     
-    @Published var ranking: [(String, Int)] = [("Kuba", 999)]
+    @Published var ranking: [(String, Int)] = []
     
     enum Combinations {
         case ones, twos, threes, fours, fives, sixes, pair, twoPairs, threeOfKind, smallStraight, bigStraight, full, fourOfKind, fiveOfKind, chanse
