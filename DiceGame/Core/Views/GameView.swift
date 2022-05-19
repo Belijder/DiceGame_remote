@@ -13,17 +13,43 @@ struct GameView: View {
     @ObservedObject var vm: GameViewModel
     @State var showSaveAsView = false
     @State var showScoreView = false
+    @State private var confirmationShown = false
     
     var body: some View {
         ZStack {
             background
+            
             VStack {
+                HStack {
+                    restartGameButton
+                    Spacer()
+                    scoreViewButton
+                        .fullScreenCover(isPresented: $showScoreView) {
+                            ScoresView(vm: vm)
+                        }
+                }
+                Spacer()
+            }
+            
+            VStack {
+                Spacer()
                 playerInfo
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+            }
+            
+            VStack {
                 if vm.gameManager.currentNumberOfdiceRolls == 0 {
                     rollButton
                 } else {
                     dices
                 }
+            }
+            
+            VStack {
                 Spacer()
                 if vm.gameManager.currentNumberOfdiceRolls > 0 {
                     HStack {
@@ -38,10 +64,9 @@ struct GameView: View {
                     .padding(.horizontal)
                 }
             }
-            scoreViewButton
-                .fullScreenCover(isPresented: $showScoreView) {
-                    ScoresView(vm: vm)
-                }
+            
+            
+           
             if vm.gameManager.gameIsEnded {
                 endGamePopUp
             }
@@ -69,13 +94,39 @@ extension GameView {
             .ignoresSafeArea(.all)
     }
     
+    private var restartGameButton: some View {
+        
+        Button(role: .destructive) {
+            confirmationShown = true
+        } label: {
+            Text("Restart Game")
+                .font(.subheadline)
+                .foregroundColor(K.Colors.yellow)
+                .frame(width: 120, height: 30)
+                .background(K.Colors.darkViolet)
+                .clipShape(Capsule())
+                .padding(.horizontal)
+        }
+        .confirmationDialog(
+            "Are you sure?",
+            isPresented: $confirmationShown,
+            titleVisibility: .visible
+        ) {
+            Button("Yes", role: .destructive) {
+                vm.gameManager.prepareNewGame()
+            }
+        } message: {
+            Text("This action cannot be undone. Would you like to proceed?")
+                .font(.headline)
+        }
+    }
+    
     private var playerInfo: some View {
         VStack {
             Text("Player \(vm.gameManager.currentPlayer)")
                 .font(.title)
                 .fontWeight(.light)
                 .foregroundColor(K.Colors.darkViolet)
-                .padding(.top, 20)
             if !vm.gameManager.playersScores.isEmpty {
                 Text("\(vm.gameManager.playersScores[vm.gameManager.currentPlayer - 1].playerName)")
                     .font(.largeTitle)
@@ -93,11 +144,11 @@ extension GameView {
             Text("Roll")
                 .font(.headline)
                 .foregroundColor(K.Colors.darkViolet)
-                .frame(width: UIScreen.main.bounds.width / 4, height: 60)
+                .frame(width: UIScreen.main.bounds.width / 4, height: 40)
                 .background(K.Colors.yellow)
                 .clipShape(Capsule())
                 .padding()
-                .padding(.top, 100)
+                .padding()
                 .scaleEffect(1.3)
         }
     }
@@ -150,7 +201,7 @@ extension GameView {
                     }
                 }
             }.padding()
-        }.padding(.top, 20)
+        }
     }
     
     private var rollAgainButton: some View {
@@ -183,21 +234,15 @@ extension GameView {
     }
     
     private var scoreViewButton: some View {
-        HStack {
-            Spacer()
-            VStack {
-                Button {
-                    self.showScoreView = true
-                } label: {
-                    Image(systemName: "tablecells")
-                        .foregroundColor(K.Colors.yellow)
-                        .frame(width: 40, height: 40)
-                        .background(K.Colors.darkViolet)
-                        .clipShape(Circle())
-                        .padding()
-                }
-                Spacer()
-            }
+        Button {
+            self.showScoreView = true
+        } label: {
+            Image(systemName: "tablecells")
+                .foregroundColor(K.Colors.yellow)
+                .frame(width: 40, height: 40)
+                .background(K.Colors.darkViolet)
+                .clipShape(Circle())
+                .padding()
         }
     }
     

@@ -13,8 +13,6 @@ class GameViewModel: ObservableObject {
     
     @ObservedObject var gameManager: GameManager
     let defaults = UserDefaults.standard
-//    let container: NSPersistentContainer
-//    var savedEntity: [GameProgressEntity] = []
     
     var progress = ProgressModel(dices: [], playersScores: [], currentPlayer: 1, currentNumberOfdiceRolls: 0, gameIsEnded: false, gameIsInProgress: false, isActivPlayerAt: [false, false, false, false])
     
@@ -34,58 +32,7 @@ class GameViewModel: ObservableObject {
             gameManager.dices[indx].isblocked = true
         }
     }
-    
-//    func fetchGameProgress() {
-//        let request = NSFetchRequest<GameProgressEntity>(entityName: "GameProgressEntity")
-//        do {
-//           savedEntity = try container.viewContext.fetch(request)
-//            if !savedEntity.isEmpty {
-//                gameManager.gameIsInProgress = savedEntity[0].gameIsInProgress
-//                gameManager.gameIsEnded = savedEntity[0].gameIsEnded
-//                gameManager.currentNumberOfdiceRolls = Int(savedEntity[0].currentNumberOfdiceRolls)
-//                gameManager.currentPlayer = Int(savedEntity[0].currentPlayer)
-//
-//                if let playerScoresData = savedEntity[0].playersScores {
-//                    do {
-//                        let decodedPlayerScores = try JSONDecoder().decode([PlayerScore].self, from: playerScoresData)
-//                        gameManager.playersScores = decodedPlayerScores
-//                    } catch let error {
-//                        print("Error decoding data for playersScores: \(error)")
-//                    }
-//                } else {
-//                    gameManager.prepareNewGame()
-//                }
-//
-//                if let DicesData = savedEntity[0].dices {
-//                    do {
-//                        let decodedDicesData = try JSONDecoder().decode([PlayerScore].self, from: DicesData)
-//                        gameManager.playersScores = decodedDicesData
-//                    } catch let error {
-//                        print("Error decoding data for dices: \(error)")
-//                    }
-//                } else {
-//                    gameManager.prepareNewGame()
-//                }
-//
-//                if let activPlayersData = savedEntity[0].isActivPlayerAt {
-//                    do {
-//                        let decodedActivPlayersData = try JSONDecoder().decode([PlayerScore].self, from: activPlayersData)
-//                        gameManager.playersScores = decodedActivPlayersData
-//                    } catch let error {
-//                        print("Error decoding data for activPlayers: \(error)")
-//                    }
-//                } else {
-//                    gameManager.prepareNewGame()
-//                }
-//            }
-//        } catch let error {
-//            print("Error fetching. \(error)")
-//            gameManager.prepareNewGame()
-//        }
-//    }
-    
-    
-    
+
     func saveGameProgress() {
         progress.dices = gameManager.dices
         progress.playersScores = gameManager.playersScores
