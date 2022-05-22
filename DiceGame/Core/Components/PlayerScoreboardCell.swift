@@ -85,6 +85,10 @@ struct PlayerScoreboardCell: View {
                         .scoreboardScoreStyle()
                 }
                 
+                Text("\(vm.gameManager.playersScores[vm.gameManager.currentPlayer - 1].pointsRemainingToGetBonus)")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+                
             }
             Group {
                 if let score = scores[.pair]! {
