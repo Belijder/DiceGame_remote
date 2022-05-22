@@ -331,22 +331,21 @@ class GameManager: ObservableObject {
     }
 
     func checkIfTheGameIsOver(playerScore: PlayerScore) -> Bool {
-        if playerScore.scores[.ones]! != nil
-//            &&
-//            playerScore.scores[.twos]! != nil &&
-//            playerScore.scores[.threes]! != nil &&
-//            playerScore.scores[.fours]! != nil &&
-//            playerScore.scores[.fives]! != nil &&
-//            playerScore.scores[.sixes]! != nil &&
-//            playerScore.scores[.pair]! != nil &&
-//            playerScore.scores[.twoPairs]! != nil &&
-//            playerScore.scores[.threeOfKind]! != nil &&
-//            playerScore.scores[.smallStraight]! != nil &&
-//            playerScore.scores[.bigStraight]! != nil &&
-//            playerScore.scores[.full]! != nil &&
-//            playerScore.scores[.fourOfKind]! != nil &&
-//            playerScore.scores[.fiveOfKind]! != nil &&
-//            playerScore.scores[.chanse]! != nil
+        if playerScore.scores[.ones]! != nil &&
+            playerScore.scores[.twos]! != nil &&
+            playerScore.scores[.threes]! != nil &&
+            playerScore.scores[.fours]! != nil &&
+            playerScore.scores[.fives]! != nil &&
+            playerScore.scores[.sixes]! != nil &&
+            playerScore.scores[.pair]! != nil &&
+            playerScore.scores[.twoPairs]! != nil &&
+            playerScore.scores[.threeOfKind]! != nil &&
+            playerScore.scores[.smallStraight]! != nil &&
+            playerScore.scores[.bigStraight]! != nil &&
+            playerScore.scores[.full]! != nil &&
+            playerScore.scores[.fourOfKind]! != nil &&
+            playerScore.scores[.fiveOfKind]! != nil &&
+            playerScore.scores[.chanse]! != nil
         {
             self.createPlayerRanking()
             return true

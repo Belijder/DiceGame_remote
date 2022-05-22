@@ -114,6 +114,7 @@ extension GameView {
         ) {
             Button("Yes", role: .destructive) {
                 vm.gameManager.prepareNewGame()
+                vm.saveGameProgress()
             }
         } message: {
             Text("This action cannot be undone. Would you like to proceed?")

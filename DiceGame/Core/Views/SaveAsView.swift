@@ -23,8 +23,9 @@ struct SaveAsView: View {
                             Button("Ones") {
                                 vm.gameManager.saveAs(.ones, for: currentPlayer)
                                 vm.gameManager.changePlayer()
+                                vm.saveGameProgress()
                                 dismiss()
-                                vm.gameManager.calculateBonus(for: currentPlayer)
+                                
                             }
                             Spacer()
                             Text("+ \(vm.gameManager.calculatePossiblePointValueToSaveAsOnes())")
@@ -36,6 +37,7 @@ struct SaveAsView: View {
                             Button("Twos") {
                                 vm.gameManager.saveAs(.twos, for: currentPlayer)
                                 vm.gameManager.changePlayer()
+                                vm.saveGameProgress()
                                 dismiss()
                             }
                             Spacer()
@@ -48,6 +50,7 @@ struct SaveAsView: View {
                             Button("Threes") {
                                 vm.gameManager.saveAs(.threes, for: currentPlayer)
                                 vm.gameManager.changePlayer()
+                                vm.saveGameProgress()
                                 dismiss()
                             }
                             Spacer()
@@ -60,6 +63,7 @@ struct SaveAsView: View {
                             Button("Fours") {
                                 vm.gameManager.saveAs(.fours, for: currentPlayer)
                                 vm.gameManager.changePlayer()
+                                vm.saveGameProgress()
                                 dismiss()
                             }
                             Spacer()
@@ -72,6 +76,7 @@ struct SaveAsView: View {
                             Button("Fives") {
                                 vm.gameManager.saveAs(.fives, for: currentPlayer)
                                 vm.gameManager.changePlayer()
+                                vm.saveGameProgress()
                                 dismiss()
                             }
                             Spacer()
@@ -84,6 +89,7 @@ struct SaveAsView: View {
                             Button("Sixes") {
                                 vm.gameManager.saveAs(.sixes, for: currentPlayer)
                                 vm.gameManager.changePlayer()
+                                vm.saveGameProgress()
                                 dismiss()
                             }
                             Spacer()
@@ -99,6 +105,7 @@ struct SaveAsView: View {
                                 Button("Pair") {
                                     vm.gameManager.saveAs(.pair, for: currentPlayer)
                                     vm.gameManager.changePlayer()
+                                    vm.saveGameProgress()
                                     dismiss()
                                 }
                                 Spacer()
@@ -111,6 +118,7 @@ struct SaveAsView: View {
                                 Button("Two Pairs") {
                                     vm.gameManager.saveAs(.twoPairs, for: currentPlayer)
                                     vm.gameManager.changePlayer()
+                                    vm.saveGameProgress()
                                     dismiss()
                                 }
                                 Spacer()
@@ -123,6 +131,7 @@ struct SaveAsView: View {
                                 Button("Three of a kind") {
                                     vm.gameManager.saveAs(.threeOfKind, for: currentPlayer)
                                     vm.gameManager.changePlayer()
+                                    vm.saveGameProgress()
                                     dismiss()
                                 }
                                 Spacer()
@@ -135,6 +144,7 @@ struct SaveAsView: View {
                                 Button("Small Straight") {
                                     vm.gameManager.saveAs(.smallStraight, for: currentPlayer)
                                     vm.gameManager.changePlayer()
+                                    vm.saveGameProgress()
                                     dismiss()
                                 }
                                 Spacer()
@@ -147,6 +157,7 @@ struct SaveAsView: View {
                                 Button("Big Straight") {
                                     vm.gameManager.saveAs(.bigStraight, for: currentPlayer)
                                     vm.gameManager.changePlayer()
+                                    vm.saveGameProgress()
                                     dismiss()
                                 }
                                 Spacer()
@@ -159,6 +170,7 @@ struct SaveAsView: View {
                                 Button("Full") {
                                     vm.gameManager.saveAs(.full, for: currentPlayer)
                                     vm.gameManager.changePlayer()
+                                    vm.saveGameProgress()
                                     dismiss()
                                 }
                                 Spacer()
@@ -171,6 +183,7 @@ struct SaveAsView: View {
                                 Button("Four of a kind") {
                                     vm.gameManager.saveAs(.fourOfKind, for: currentPlayer)
                                     vm.gameManager.changePlayer()
+                                    vm.saveGameProgress()
                                     dismiss()
                                 }
                                 Spacer()
@@ -183,6 +196,7 @@ struct SaveAsView: View {
                                 Button("Five of a kind") {
                                     vm.gameManager.saveAs(.fiveOfKind, for: currentPlayer)
                                     vm.gameManager.changePlayer()
+                                    vm.saveGameProgress()
                                     dismiss()
                                 }
                                 Spacer()
@@ -197,6 +211,7 @@ struct SaveAsView: View {
                                 Button("Chanse") {
                                     vm.gameManager.saveAs(.chanse, for: currentPlayer)
                                     vm.gameManager.changePlayer()
+                                    vm.saveGameProgress()
                                     dismiss()
                                 }
                                 Spacer()
