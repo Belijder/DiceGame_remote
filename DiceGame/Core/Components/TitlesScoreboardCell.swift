@@ -24,7 +24,7 @@ struct TitlesScoreboardCell: View {
                     Text("Fives").scoreboardTitleStyle()
                     Text("Sixes").scoreboardTitleStyle()
                     Text("Bonus").scoreboardTitleStyle()
-                    Text("left to get bonus:")
+                    Text("left to get:")
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }

@@ -85,7 +85,7 @@ struct PlayerScoreboardCell: View {
                         .scoreboardScoreStyle()
                 }
                 
-                Text("\(vm.gameManager.playersScores[vm.gameManager.currentPlayer - 1].pointsRemainingToGetBonus)")
+                Text("\(vm.gameManager.playersScores[playerNumber - 1].pointsRemainingToGetBonus)")
                     .font(.caption2)
                     .foregroundColor(.secondary)
                 
